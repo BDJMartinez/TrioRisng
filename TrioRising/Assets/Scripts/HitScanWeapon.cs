@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UndeadWarfare.AI;
 
 public class HitScanWeapon : MonoBehaviour, IWeapon
 {
@@ -139,7 +140,7 @@ public class HitScanWeapon : MonoBehaviour, IWeapon
 
                 if (dmg != null)
                 {
-                    dmg.takeDamage(damage, hit.point);
+                    dmg.TakeDamage(damage, hit.point);
                 }
             }
         }

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class EnemyBossAi : MonoBehaviour, IDamage, IMonster
+public class EnemyBossAi : MonoBehaviour, UndeadWarfare.AI.IDamage, IMonster
 {
     [SerializeField] int health;
     [SerializeField] Transform shootPos;
@@ -160,5 +160,10 @@ public class EnemyBossAi : MonoBehaviour, IDamage, IMonster
         model.material.color = Color.red;
         yield return new WaitForSeconds(0.25f);
         model.material.color = colorOrig;
+    }
+
+    public void TakeDamage(int amount, Vector3 impulsePosition, GameObject source = null, bool weakspot = false)
+    {
+        throw new System.NotImplementedException();
     }
 }

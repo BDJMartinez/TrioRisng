@@ -5,9 +5,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class EnemyAI : MonoBehaviour, IDamage, IMonster
+public class EnemyAI : MonoBehaviour, UndeadWarfare.AI.IDamage, IMonster
 {
-    [SerializeField] int health;
+    [SerializeField] int healthPoints;
 
     [SerializeField] Transform shootPos;
     [SerializeField] Transform headPos;
@@ -83,13 +83,13 @@ public class EnemyAI : MonoBehaviour, IDamage, IMonster
     
     public void takeDamage(int damage, Vector3 impulsePosition)
     {
-        if (health <= 0) return; // Prevent further damage after death
+        if (healthPoints <= 0) return; // Prevent further damage after death
 
-        health -= damage;
+        healthPoints -= damage;
         //GetComponent<Rigidbody>().AddExplosionForce(15, impulsePosition, 20, 0);
         StartCoroutine(flashColor());
 
-        if (health <= 0)
+        if (healthPoints <= 0)
         {
             gamemanager.instance.updateGameGoal(-1);
             Die();
@@ -128,5 +128,8 @@ public class EnemyAI : MonoBehaviour, IDamage, IMonster
         model.material.color = colorOrig;
     }
 
-    
+    public void TakeDamage(int amount, Vector3 impulsePosition, GameObject source = null, bool weakspot = false)
+    {
+        throw new System.NotImplementedException();
+    }
 }
