@@ -10,7 +10,7 @@ namespace UndeadWarfare.AI
     public enum EnemyState
     {
         Idle,
-        Seek,
+        Engage,
         Attack,
         Flank,
         Flee,
@@ -26,6 +26,7 @@ namespace UndeadWarfare.AI
         // Public getter of NavMeshAgent
         public NavMeshAgent NavAgent { get => navAgent; }
         public bool IsTargetVisible { get => isTargetVisible; set => IsTargetVisible = value; }
+        public bool IsNearTarget { get => isNearTarget; set => IsNearTarget = value; }
 
         [Header("---Targeting and Movement---")]
         public GameObject Target;
@@ -74,7 +75,7 @@ namespace UndeadWarfare.AI
             return targetFacingAlignment;
         }
         // Check if the target is visible based on line of sight and angle requirements
-        public void CheckTargetVisiblityy()
+        public void CheckTargetVisiblity()
         {
             if (Physics.Raycast(transform.position, CalculateTargetDirection(), out RaycastHit visibilityHit, targetDetectionRange))
             {

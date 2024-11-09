@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UndeadWarfare.AI.States;
+using UndeadWarfare.AI.Type;
 using System;
 
 namespace UndeadWarfare.AI
@@ -10,14 +10,16 @@ namespace UndeadWarfare.AI
     {
         // ---- Basic Stats ----
         public int Health { get => health; set => health = value; }
-        public int AttackDamage { get; set; }
-        public float AttackDelay { get; set; }
-        public float AttackCooldown { get; set; }
-        public float MovementSpeed { get; set; } 
-        public bool IsAttacking { get; set; }
-        public bool IsFree { get; set; }
-        public float AttackTimer { get; set; }
-        public bool IsFleeing { get; set; }
+        public int AttackDamage { get => attackDamage; set => attackDamage = value; }
+        public float AttackDelay { get => attackDelay; set => attackDelay = value; }
+        public float AttackCooldown { get => attackCooldown; set => attackCooldown = value; }
+        public int DamageMultiplier { get => damageMultiplier; set => damageMultiplier = value; }
+        public float MovementSpeed { get => movementSpeed; set => movementSpeed = value; }
+        public float MovementSpeedMultiplier { get => movementSpeedMultiplier; set => movementSpeedMultiplier = value; }
+        public bool IsAttacking { get => isAttacking; set => isAttacking = value; }
+        public bool IsAvailable { get => isAvailable; set => isAvailable = value; }
+        public int AttackTimer { get => attackDamage; set => attackDamage = value; }
+        public bool IsFleeing { get => isFleeing; set => isFleeing = value; }
 
         [Header(" ---- Base Undead ---- ")]
         public UndeadType Type;
@@ -34,9 +36,11 @@ namespace UndeadWarfare.AI
         [SerializeField] protected int attackDamage;
         [SerializeField] protected float attackDelay;
         [SerializeField] protected float attackCooldown;
+        [SerializeField] protected int damageMultiplier;
         [SerializeField] protected float movementSpeed;
+        [SerializeField] protected float movementSpeedMultiplier;
         [SerializeField] protected bool isAttacking;
-        [SerializeField] protected bool isFree;
+        [SerializeField] protected bool isAvailable;
         [SerializeField] protected float attackTimer;
         [SerializeField] protected bool isFleeing;
         [SerializeField] protected Vector3 maxDistance;
@@ -54,16 +58,17 @@ namespace UndeadWarfare.AI
         // ---- Cached Components & Variables ----
         int orginalHealth;         // Original HP
         Collider col;
-        Vector3 launchSpot;         
+        Vector3 launchSpot;
         int originalDamage;         // Orginal Attack Damage
         float originalSpeed;        // Original Attack Speed
-        float lastTick;             // Timer for status effects
-        float lastApply;            // Timer for effect Application
-        protected Rigidbody rb;     
+        float lastTimestamp;             // Timer for status effects
+        float lastApplication;            // Timer for effect Application
+        protected Rigidbody rb;
 
         void Start()
         {
             InitializeUndead();
+            lastTimestamp = Time.deltaTime;
             UpdateState(new RegisterState(this));
         }
         void Update()
@@ -84,15 +89,19 @@ namespace UndeadWarfare.AI
         public void InitializeUndead()
         {
             rb = GetComponent<Rigidbody>();
+            col = GetComponent<Collider>();
+            navAgent.speed = movementSpeed;
+            Target = gamemanager.instance.player.gameObject;
+            CacheStartingValues();
+        }
+        // Caches the starting values of relevant variables
+        public void CacheStartingValues()
+        {
             originalDamage = attackDamage;
             originalSpeed = movementSpeed;
             onLand = true;
-            lastTick = Time.deltaTime;
-            col = GetComponent<Collider>();
             orginalHealth = health;
-            isFree = true;
-            navAgent.speed = movementSpeed;
-            Target = gamemanager.instance.player.gameObject;
+            isAvailable = true;
             StoppingDistanceOriginal = NavAgent.stoppingDistance;
         }
         // Updates the AI State
@@ -103,7 +112,13 @@ namespace UndeadWarfare.AI
         }
         public void TakeDamage(int amount, Vector3 impulsePosition, GameObject source = null, bool weakspot = false)
         {
-            throw new System.NotImplementedException();
+            amount *= DamageMultiplier;
+            health -= amount;
+
+            if (amount > 0)
+            {
+                if (CurrentStateName == EnemyState.Dead) { return; }        // If AI state is DEAD, do nothing
+            }
         }
     }
 }
