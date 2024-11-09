@@ -1,7 +1,10 @@
+using System.Buffers;
 using System.Collections;
 using System.Collections.Generic;
 using UndeadWarfare.AI.State;
+using UndeadWarfare.Player;
 using UnityEngine;
+using static UnityEngine.GraphicsBuffer;
 
 namespace UndeadWarfare.AI.Undead
 {
@@ -57,7 +60,7 @@ namespace UndeadWarfare.AI.Undead
             if (IsTargetVisible)
             {
                 TransitionToState(new EngageState(this));
-                Debug.Log("Seeker has engaged the target!"); 
+                Debug.Log("Seeker has engaged the target!");
             }
 
         }
@@ -67,8 +70,10 @@ namespace UndeadWarfare.AI.Undead
             Debug.Log($"Seeker attacks the target");
             TransitionToState(new BaseAttackState(this));
             // TODO: Attack animation logic
-            
         }
+        // Inflicts damage on the AI's target when contact is made
+        public void InflictDamage() { Target.GetComponent<PlayerController>().TakeDamage(attackDamage, this.gameObject); }         // Inflict damage on the player
+
         // Triggers fleeing behavior if Seeker health falls below the threshold
         public void FleeTarget()
         {
@@ -81,6 +86,14 @@ namespace UndeadWarfare.AI.Undead
             TransitionToState(new DeadState(this));
             Debug.Log("Seeker has died!");
             Destroy(gameObject);
+        }
+        // Checks if collision is with the player via tag, if so inflicts damage on the player
+        public void OnCollisionEnter(Collision collision)
+        {
+            if (collision == null) return;
+            // If the player is the collider is tagged as the player
+            if (collision.collider.CompareTag("Player"))
+                InflictDamage();
         }
     }
 }

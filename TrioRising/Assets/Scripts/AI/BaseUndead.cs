@@ -53,7 +53,7 @@ namespace UndeadWarfare.AI
         public GameObject HitEffect;            // Effect on hit
         public GameObject DeathEffect;          // Effect on Death
         public Transform shootPosition;         // Position for shooting projectiles
-        public bool onLand;
+        public bool isGrounded;                 // Is AI Grounded at the moment
 
         // ---- Cached Components & Variables ----
         int orginalHealth;         // Original HP
@@ -78,7 +78,7 @@ namespace UndeadWarfare.AI
 
             }
 
-            if (!onLand) { return; }
+            if (!isGrounded) { return; }
             if (CurrentState == null)
             {
                 throw new Exception("NO CORRESPONDING STATE");
@@ -99,7 +99,7 @@ namespace UndeadWarfare.AI
         {
             originalDamage = attackDamage;
             originalSpeed = movementSpeed;
-            onLand = true;
+            isGrounded = true;
             orginalHealth = health;
             isAvailable = true;
             StoppingDistanceOriginal = NavAgent.stoppingDistance;
