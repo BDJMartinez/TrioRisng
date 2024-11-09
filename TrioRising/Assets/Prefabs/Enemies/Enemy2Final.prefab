@@ -1533,7 +1533,7 @@ MonoBehaviour:
   bullet: {fileID: 7023022507366372509, guid: 01c7a99b49900ff4c9147eecfc45d42f, type: 3}
   shootRate: 0.5
   agent: {fileID: 3022968376128964994}
-  model: {fileID: 7027053049029342549}
+  model: {fileID: 7027053047635113734}
   rotationSpeed: 5
 --- !u!33 &7027053049029342548
 MeshFilter:

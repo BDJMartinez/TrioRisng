@@ -1461,7 +1461,7 @@ GameObject:
   - component: {fileID: 6469079171916767774}
   - component: {fileID: 6469079171916767773}
   - component: {fileID: 6469079171916767772}
-  m_Layer: 10
+  m_Layer: 8
   m_Name: Enemy2
   m_TagString: monster
   m_Icon: {fileID: 0}
@@ -1502,7 +1502,7 @@ MonoBehaviour:
   bullet: {fileID: 7023022507366372509, guid: 01c7a99b49900ff4c9147eecfc45d42f, type: 3}
   shootRate: 0.5
   agent: {fileID: 6469079171916767773}
-  model: {fileID: 1274640774002777802}
+  model: {fileID: 1274640773111864473}
   rotationSpeed: 5
 --- !u!33 &1274640774002777803
 MeshFilter:
