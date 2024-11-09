@@ -10,6 +10,9 @@ using UnityEngine.SocialPlatforms;
 
 public class PlayerController : MonoBehaviour, EnemyDamage
 {
+    public float Speed { get => speed; set => speed = value; }
+    public bool IsFrozen { get => isFrozen; set => isFrozen = value; }
+
     [SerializeField] int health;
     [SerializeField] float speed;
     [SerializeField] int jumpMax;
@@ -31,6 +34,8 @@ public class PlayerController : MonoBehaviour, EnemyDamage
     bool isShooting;
     bool continuousFire;
     bool swapping;
+
+    bool isFrozen; //Freeze state
     //GameObject pe;
 
     // Start is called before the first frame update
@@ -79,6 +84,7 @@ public class PlayerController : MonoBehaviour, EnemyDamage
         playerVelocity.y -= gravity * Time.deltaTime;
         controller.Move(playerVelocity * Time.deltaTime);
 
+
         if (Input.GetButton("Fire1") &&!gamemanager.instance.isPaused&&!swapping)
         {
             if (currentWeapon != null)
@@ -122,6 +128,9 @@ public class PlayerController : MonoBehaviour, EnemyDamage
         }
 
     }
+
+   
+
 
     void swapWeapons(GameObject weapon)
     {
