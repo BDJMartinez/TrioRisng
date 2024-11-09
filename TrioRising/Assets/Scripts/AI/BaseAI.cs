@@ -27,6 +27,7 @@ namespace UndeadWarfare.AI
         public NavMeshAgent NavAgent { get => navAgent; }
         public bool IsTargetVisible { get => isTargetVisible; set => IsTargetVisible = value; }
         public bool IsNearTarget { get => isNearTarget; set => IsNearTarget = value; }
+        public bool IsEngagingTarget { get => isEngagingTarget; set => IsEngagingTarget = value; }
 
         [Header("---Targeting and Movement---")]
         public GameObject Target;
@@ -47,6 +48,7 @@ namespace UndeadWarfare.AI
 
         private bool isTargetVisible;
         private bool isNearTarget;
+        private bool isEngagingTarget;
         private float lastProximityCheckTimestamp;      // Stores the last time proximity was checked
 
         private void Start()
@@ -81,6 +83,7 @@ namespace UndeadWarfare.AI
             {
                 Debug.DrawRay(transform.position, targetDirection, Color.green);        // Debug Ray
                 isTargetVisible = visibilityHit.collider.CompareTag("Player") && CalculateTargetFacingAligment() > minAngleToDetection;
+                Debug.Log("Target is visible...");
             }
             else
                 isTargetVisible = false;        // No visiblilty if the raycast did not hit the target
@@ -92,6 +95,7 @@ namespace UndeadWarfare.AI
             {
                 isNearTarget = CalculateDistanceToTarget() <= proximityDistance;        // Check proximity distance to target
                 lastProximityCheckTimestamp = Time.time;        // Update last time checked
+                Debug.Log($"Is Near Target: {isNearTarget}");
             }
         }
         // Checks if a specific spot has an ubstucted view to the target
@@ -125,6 +129,12 @@ namespace UndeadWarfare.AI
             if (!navAgent.enabled) return;      // Check if the NavMeshAgent is enabled
             navAgent.stoppingDistance = StoppingDistanceOriginal;       // Set the stopping distance 
             navAgent.SetDestination(desiredMovePosition);       // Move to the desire 
+        }
+
+        public Vector3 SetDesiredPosition(Vector3 _desiredMovePosition)
+        {
+            desiredMovePosition = _desiredMovePosition;
+            return desiredMovePosition;
         }
     }
 }

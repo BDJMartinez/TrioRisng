@@ -9,16 +9,18 @@ namespace UndeadWarfare.AI.State
         public EngageState(BaseUndead owner) : base(owner) { Name = EnemyState.Engage; }
         public override void Run()
         {
-            GetOwner();
             Owner.IsAvailable = false;
-            Owner.RotateTowardsTarget();
             Owner.CheckTargetProximity();
             Owner.CheckTargetVisiblity();
-            
             if (Owner.IsTargetVisible)
+            {
                 Owner.NavAgent.speed = Owner.MovementSpeed * Owner.MovementSpeedMultiplier;         // Multiply the movement speed if the target is visible
+                Owner.RotateTowardsTarget();
+                Owner.SetDesiredPosition(Owner.Target.transform.position);
+                Owner.MoveToPosition();
+            }
             else
                 Owner.NavAgent.speed = Owner.MovementSpeed;         // Normal movement speed when the enemy is not visible 
         }
-    } 
+    }
 }
