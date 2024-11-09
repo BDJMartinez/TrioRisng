@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 5382240770404136074}
   - component: {fileID: 1477188449168895847}
   - component: {fileID: 3245221003099574785}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: ViewPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -62,7 +62,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 4067c54eac224bc45953a42bac568cd2, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -107,13 +107,14 @@ GameObject:
   m_Component:
   - component: {fileID: 7253712457796378898}
   - component: {fileID: 7253712457796378897}
+  - component: {fileID: 7253712457796378909}
   - component: {fileID: 7253712457796378896}
   - component: {fileID: 7253712457796378911}
   - component: {fileID: 7253712457796378910}
-  - component: {fileID: 7253712457796378909}
-  m_Layer: 0
+  - component: {fileID: 444166827}
+  m_Layer: 11
   m_Name: UndeadSeeker
-  m_TagString: Untagged
+  m_TagString: Seeker
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -148,10 +149,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Target: {fileID: 0}
-  rotationSpeedTowardsTarget: 0
+  rotationSpeedTowardsTarget: 10
   navAgent: {fileID: 7253712457796378909}
-  targetDetectionRange: 0
-  proximityDistance: 0
+  targetDetectionRange: 20
+  proximityDistance: 20
   minAngleToDetection: 0
   targetDirection: {x: 0, y: 0, z: 0}
   targetDirectionNormalized: {x: 0, y: 0, z: 0}
@@ -163,25 +164,47 @@ MonoBehaviour:
   AttackArea: {fileID: 0}
   AreaOfEffect: {fileID: 0}
   health: 0
-  attackDamage: 0
+  attackDamage: 5
   attackDelay: 0
   attackCooldown: 0
   damageMultiplier: 0
-  movementSpeed: 0
-  movementSpeedMultiplier: 0
+  movementSpeed: 10
+  movementSpeedMultiplier: 1.5
   isAttacking: 0
   isAvailable: 0
-  attackTimer: 0
+  attackTimer: 3
   isFleeing: 0
   maxDistance: {x: 0, y: 0, z: 0}
   AttackPhase: 0
   HitEffect: {fileID: 0}
   DeathEffect: {fileID: 0}
-  shootPosition: {fileID: 0}
-  onLand: 0
+  shootPosition: {fileID: 5053969712535027570}
+  isGrounded: 0
   DetectionRange: 10
   AttackRange: 2
   FleeHealthThreshold: 20
+--- !u!195 &7253712457796378909
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7253712457796378908}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 0.5
+  m_Speed: 3.5
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 120
+  m_StoppingDistance: 1
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 0
+  m_AutoRepath: 1
+  m_Height: 2
+  m_BaseOffset: 1
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
 --- !u!33 &7253712457796378896
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -210,7 +233,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 26c1fe060e5a22140b788b60f1f8b6ff, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -246,28 +269,19 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
---- !u!195 &7253712457796378909
-NavMeshAgent:
+--- !u!135 &444166827
+SphereCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7253712457796378908}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
   m_Enabled: 1
-  m_AgentTypeID: 0
-  m_Radius: 0.5
-  m_Speed: 3.5
-  m_Acceleration: 8
-  avoidancePriority: 50
-  m_AngularSpeed: 120
-  m_StoppingDistance: 0
-  m_AutoTraverseOffMeshLink: 1
-  m_AutoBraking: 1
-  m_AutoRepath: 1
-  m_Height: 2
-  m_BaseOffset: 1
-  m_WalkableMask: 4294967295
-  m_ObstacleAvoidanceType: 4
+  serializedVersion: 2
+  m_Radius: 20
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &7444234624491314922
 GameObject:
   m_ObjectHideFlags: 0
@@ -277,7 +291,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5053969712535027570}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: ShootPosition
   m_TagString: Untagged
   m_Icon: {fileID: 0}
