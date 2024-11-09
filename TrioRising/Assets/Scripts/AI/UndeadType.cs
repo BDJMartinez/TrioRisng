@@ -6,6 +6,6 @@ namespace UndeadWarfare.AI.Type
 {
     public enum UndeadType
     {
-        None,
+        Seekers,
     }
 }
