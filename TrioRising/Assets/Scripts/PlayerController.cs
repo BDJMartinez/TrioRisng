@@ -32,6 +32,7 @@ public class PlayerController : MonoBehaviour, EnemyDamage
     int HPOrig;
     Vector3 playerVelocity;
     bool isShooting;
+    private bool isSprinting;
     bool continuousFire;
     bool swapping;
 
@@ -193,10 +194,12 @@ public class PlayerController : MonoBehaviour, EnemyDamage
         if (Input.GetButtonDown("Sprint"))
         {
             speed *= sprintMod;
+            isSprinting = true;
         }
         else if (Input.GetButtonUp("Sprint"))
         {
             speed /= sprintMod;
+            isSprinting = false;
         }
     }
 
@@ -242,5 +245,14 @@ public class PlayerController : MonoBehaviour, EnemyDamage
 
         
         speed /= speedMultiplier;
+    }
+
+    public bool IsMoving()
+    {
+        return movementDir.magnitude > 0;
+    }
+    public bool IsSprinting()
+    {
+        return isSprinting;
     }
 }
