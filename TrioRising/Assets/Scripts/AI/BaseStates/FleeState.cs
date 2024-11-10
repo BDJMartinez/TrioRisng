@@ -15,6 +15,7 @@ namespace UndeadWarfare.AI.State
                 Owner.UpdateState(new IdleState(Owner));
                 return;
             }
+            Owner.IsFleeing = true;
             // Calculate the flee direction, which is directly opposite to the targets' position
             Vector3 fleeDirection = CalculateFleeDirection();
             Vector3 fleePosition = Owner.transform.position + fleeDirection;

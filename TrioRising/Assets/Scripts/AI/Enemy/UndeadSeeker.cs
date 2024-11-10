@@ -10,6 +10,7 @@ namespace UndeadWarfare.AI.Undead
 {
     public class UndeadSeeker : BaseUndead
     {
+        #region SEEKER_PROPERTIES
         [Header(" ---- Seeker Properties ---- ")]
 
         public float DetectionRange = 10f;
@@ -19,6 +20,9 @@ namespace UndeadWarfare.AI.Undead
         public float FleeHealthThreshold = 20f;
 
         private BaseAIState _currentState;
+        #endregion
+
+        #region LIFECYCLE METHODS
         // Initialize the Seeker and set it's initial state
         private void Start()
         {
@@ -29,11 +33,18 @@ namespace UndeadWarfare.AI.Undead
         private void Update()
         {
             _currentState?.Run();
-            if (IsPlayerInSightRange())
+            if (IsPlayerInSightRange() && IsTargetVisible)
             {
-                EngageTarget();
+                if (IsPlayerInAttackRange() && IsNearTarget) 
+                    AttackTarget(); 
+                else
+                    EngageTarget();
             }
+
         }
+        #endregion
+
+        #region STATE_CONTROL_&_BEHAVIOR
         // Changes the Seekers current state to a new state
         public void TransitionToState(BaseAIState _newState)
         {
@@ -54,26 +65,23 @@ namespace UndeadWarfare.AI.Undead
             float distanceToPlayer = Vector3.Distance(transform.position, Target.transform.position);
             return distanceToPlayer <= AttackRange;
         }
-
+        // Triggers engage behavior at the player
         public void EngageTarget()
         {
-            if (IsTargetVisible)
-            {
-                TransitionToState(new EngageState(this));
-                Debug.Log("Seeker has engaged the target!");
-            }
-
+            TransitionToState(new EngageState(this));           // Transition to engage state
+            Debug.Log("Seeker has engaged the target!");
         }
-        // Triggers attack action against the player
+        // Triggers attack behavior against the player
         public void AttackTarget()
         {
-            Debug.Log($"Seeker attacks the target");
-            TransitionToState(new BaseAttackState(this));
+            this.IsEngagingTarget = !this.IsEngagingTarget;     // Toggle off when transitioning to the new state
+            Debug.Log($"{this} is attacking the target");
+            TransitionToState(new BaseAttackState(this));       // Transition to attack state
+            Debug.Log($"{this} has transitioned to {this._currentState}");
             // TODO: Attack animation logic
         }
         // Inflicts damage on the AI's target when contact is made
-        public void InflictDamage() { Target.GetComponent<PlayerController>().TakeDamage(attackDamage, this.gameObject); }         // Inflict damage on the player
-
+        public void InflictDamage() { Target.GetComponent<PlayerController_Deprecated>().TakeDamage(attackDamage, this.gameObject); }         // Inflict damage on the player
         // Triggers fleeing behavior if Seeker health falls below the threshold
         public void FleeTarget()
         {
@@ -87,6 +95,7 @@ namespace UndeadWarfare.AI.Undead
             Debug.Log("Seeker has died!");
             Destroy(gameObject);
         }
+        #endregion
         // Checks if collision is with the player via tag, if so inflicts damage on the player
         public void OnCollisionEnter(Collision collision)
         {

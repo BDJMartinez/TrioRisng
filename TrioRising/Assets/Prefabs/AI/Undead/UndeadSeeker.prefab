@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 5382240770404136074}
   - component: {fileID: 1477188449168895847}
   - component: {fileID: 3245221003099574785}
-  m_Layer: 11
+  m_Layer: 0
   m_Name: ViewPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -112,7 +112,8 @@ GameObject:
   - component: {fileID: 7253712457796378911}
   - component: {fileID: 7253712457796378910}
   - component: {fileID: 444166827}
-  m_Layer: 11
+  - component: {fileID: 444166828}
+  m_Layer: 0
   m_Name: UndeadSeeker
   m_TagString: Seeker
   m_Icon: {fileID: 0}
@@ -163,7 +164,7 @@ MonoBehaviour:
   CurrentStateName: 0
   AttackArea: {fileID: 0}
   AreaOfEffect: {fileID: 0}
-  health: 0
+  health: 3
   attackDamage: 5
   attackDelay: 0
   attackCooldown: 0
@@ -176,13 +177,14 @@ MonoBehaviour:
   isFleeing: 0
   maxDistance: {x: 0, y: 0, z: 0}
   AttackPhase: 0
+  HotSpot: {fileID: 0}
   HitEffect: {fileID: 0}
   DeathEffect: {fileID: 0}
   shootPosition: {fileID: 5053969712535027570}
   isGrounded: 0
-  DetectionRange: 10
+  DetectionRange: 20
   AttackRange: 2
-  FleeHealthThreshold: 20
+  FleeHealthThreshold: 5
 --- !u!195 &7253712457796378909
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -282,6 +284,22 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 20
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!54 &444166828
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7253712457796378908}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &7444234624491314922
 GameObject:
   m_ObjectHideFlags: 0
@@ -291,7 +309,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5053969712535027570}
-  m_Layer: 11
+  m_Layer: 0
   m_Name: ShootPosition
   m_TagString: Untagged
   m_Icon: {fileID: 0}

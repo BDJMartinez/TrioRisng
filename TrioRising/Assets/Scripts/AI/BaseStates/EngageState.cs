@@ -14,6 +14,7 @@ namespace UndeadWarfare.AI.State
             Owner.CheckTargetVisiblity();
             if (Owner.IsTargetVisible)
             {
+                Owner.IsEngagingTarget = true;
                 Owner.NavAgent.speed = Owner.MovementSpeed * Owner.MovementSpeedMultiplier;         // Multiply the movement speed if the target is visible
                 Owner.RotateTowardsTarget();
                 Owner.SetDesiredPosition(Owner.Target.transform.position);

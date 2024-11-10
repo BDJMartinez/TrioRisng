@@ -11,7 +11,7 @@ using UnityEngine.SocialPlatforms;
 namespace UndeadWarfare.Player
 {
 
-    public class PlayerController : MonoBehaviour, EnemyDamage, UndeadWarfare.AI.IDamage
+    public class PlayerController_Deprecated : MonoBehaviour, EnemyDamage, UndeadWarfare.AI.IDamage
     {
         [SerializeField] int health;
         [SerializeField] float speed;
@@ -34,7 +34,7 @@ namespace UndeadWarfare.Player
         bool isShooting;
         bool continuousFire;
         bool swapping;
-        //GameObject pe;
+        
 
         // Start is called before the first frame update
         void Start()

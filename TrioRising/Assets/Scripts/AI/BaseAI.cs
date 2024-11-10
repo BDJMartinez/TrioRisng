@@ -19,6 +19,7 @@ namespace UndeadWarfare.AI
 
     public class BaseAI : MonoBehaviour
     {
+        #region PUBLIC_PROPERTIES
         // -----Public Properties----
         // Getter & Setters for proximatity to target and speed of orientation to target
         public float ProximityDistance { get => proximityDistance; set => proximityDistance = value; }
@@ -28,7 +29,9 @@ namespace UndeadWarfare.AI
         public bool IsTargetVisible { get => isTargetVisible; set => IsTargetVisible = value; }
         public bool IsNearTarget { get => isNearTarget; set => IsNearTarget = value; }
         public bool IsEngagingTarget { get => isEngagingTarget; set => IsEngagingTarget = value; }
+        #endregion
 
+        #region AI_BEHAVIORIAL_PROPERTIES
         [Header("---Targeting and Movement---")]
         public GameObject Target;
         [SerializeField] private int rotationSpeedTowardsTarget;
@@ -50,14 +53,18 @@ namespace UndeadWarfare.AI
         private bool isNearTarget;
         private bool isEngagingTarget;
         private float lastProximityCheckTimestamp;      // Stores the last time proximity was checked
+        #endregion
 
+        #region LIFECYCLE_MEHTODS
         private void Start()
         {
             // NOOP
         }
+        #endregion
 
+        #region TARGET_DETECTION_&_VISIBILITY
         // ---- Target Detection and Visiblity Methods ----
-        
+
         // Calculate and updates direction to the target; returns this direction 
         public Vector3 CalculateTargetDirection()
         {
@@ -109,9 +116,11 @@ namespace UndeadWarfare.AI
 
             return true;        // Return true if no obstacles found
         }
-       
+        #endregion
+
+        #region MOVEMENT_&_POSITONING
         // ---- Movement and Positioning Methods ----
-        
+
         // Smoothly rotates the AI to face the target
         public void RotateTowardsTarget()
         {
@@ -136,5 +145,6 @@ namespace UndeadWarfare.AI
             desiredMovePosition = _desiredMovePosition;
             return desiredMovePosition;
         }
+        #endregion
     }
 }

@@ -34070,6 +34070,18 @@ PrefabInstance:
       propertyPath: Target
       value: 
       objectReference: {fileID: 1652073586}
+    - target: {fileID: 7253712457796378897, guid: 423102861a122dd42a3f0ac51e5ccc78, type: 3}
+      propertyPath: health
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7253712457796378897, guid: 423102861a122dd42a3f0ac51e5ccc78, type: 3}
+      propertyPath: DetectionRange
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 7253712457796378897, guid: 423102861a122dd42a3f0ac51e5ccc78, type: 3}
+      propertyPath: FleeHealthThreshold
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 7253712457796378898, guid: 423102861a122dd42a3f0ac51e5ccc78, type: 3}
       propertyPath: m_RootOrder
       value: 1
