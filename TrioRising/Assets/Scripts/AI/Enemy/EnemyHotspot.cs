@@ -8,7 +8,6 @@ namespace UndeadWarfare.AI
     public class EnemyHotspot : BaseUndead, IDamage
     {
         [Header(" ---- Hot Spot Properties ---- ")]
-
         [Tooltip("Reference to this base enemy health component.")]
         [SerializeField] private IDamage enemyDamageReciever;       // Reference to the parent recieving the damage
 
@@ -27,7 +26,7 @@ namespace UndeadWarfare.AI
         // Handles the logic with the hotspot is hit with a projectile 
         private void HandleProjectileHit(GameObject _projectile)
         {
-            
+            // TODO: Add collision handling logic for projectiles on target
         }
     }
 }

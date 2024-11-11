@@ -14,6 +14,8 @@ public class gamemanager : MonoBehaviour
 {
     public static gamemanager instance;
 
+    public TMP_Text PromptText { get => promptText; set => promptText = value; }
+
     List<Vector3> MonsterPositionCache = new List<Vector3>();
     List<Quaternion> MonsterRotationCache = new List<Quaternion>();
 
@@ -26,6 +28,9 @@ public class gamemanager : MonoBehaviour
     [SerializeField] GameObject menuLose;
 
     [SerializeField] TMP_Text enemyCountText;
+
+    [SerializeField] public GameObject PromptBackground;
+    [SerializeField] TMP_Text promptText;
 
     public Image playerHpBar;
 
