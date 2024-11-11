@@ -4,13 +4,17 @@ using UnityEngine;
 
 public class spawnManager : MonoBehaviour
 {
+    public int SpawnCount {  get => spawnCount; private set => spawnCount = value; }
+    public int SpawnListCurrentIndex { get => spawnListCurrentIndex; set => spawnListCurrentIndex = value; }
+
     [SerializeField] GameObject[] spawnObjects;
     [SerializeField] public int numToSpawn;
     [SerializeField] float spawnTime;
     [SerializeField] Transform[] spawnPos;
-    [SerializeField] public List<GameObject> spawnList;
+    public List<GameObject> spawnList;
 
-    public int spawnCount;
+    private int spawnCount;
+    private int spawnListCurrentIndex = 0;
 
     bool isSpawning;
     bool startSpawning;
@@ -47,9 +51,10 @@ public class spawnManager : MonoBehaviour
         int transformArrayPosition = Random.Range(0, spawnPos.Length);
         int objectArrayPosition = Random.Range(0, spawnObjects.Length);
         GameObject instantiated = Instantiate(spawnObjects[objectArrayPosition], spawnPos[transformArrayPosition].position, spawnPos[transformArrayPosition].rotation);
-        spawnList.Add(instantiated);
+        spawnList.Insert(SpawnListCurrentIndex, instantiated);
+        SpawnListCurrentIndex++;
         instantiated.transform.SetParent(transform);
-        spawnCount++;
+        SpawnCount++;
         isSpawning=false;
 
 

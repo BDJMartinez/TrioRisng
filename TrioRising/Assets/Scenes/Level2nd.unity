@@ -6283,7 +6283,6 @@ MonoBehaviour:
   - {fileID: 6463184372620771200}
   spawnList:
   - {fileID: 2650407911537634883, guid: 6a7a29737e670464491faec6e6a2f8dc, type: 3}
-  spawnCount: 0
   isObjectiveSpawner: 0
 --- !u!135 &523923700616883492
 SphereCollider:

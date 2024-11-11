@@ -13,6 +13,8 @@ public class gamemanager : MonoBehaviour
 {
     public static gamemanager instance;
 
+    public bool StunnedPlayer { get => stunnedPlayer; set => stunnedPlayer = value; }
+
     List<Vector3> MonsterPositionCache = new List<Vector3>();
     List<Quaternion> MonsterRotationCache = new List<Quaternion>();
 
@@ -23,6 +25,8 @@ public class gamemanager : MonoBehaviour
     [SerializeField] GameObject menuPause;
     [SerializeField] GameObject menuWin;
     [SerializeField] GameObject menuLose;
+
+    [SerializeField] bool stunnedPlayer;
 
     [SerializeField] TMP_Text enemyCountText;
 

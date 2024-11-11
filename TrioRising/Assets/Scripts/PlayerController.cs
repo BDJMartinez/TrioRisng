@@ -19,6 +19,8 @@ public class PlayerController : MonoBehaviour, EnemyDamage
     [SerializeField] float jumpSpeed;
     [SerializeField] float gravity;
     [SerializeField] int sprintMod;
+    [SerializeField] float jumpTimeSpan;
+
 
     [SerializeField] Camera cam;
     [SerializeField] CharacterController controller;
