@@ -1566,7 +1566,7 @@ MonoBehaviour:
   bullet: {fileID: 7023022507366372509, guid: 01c7a99b49900ff4c9147eecfc45d42f, type: 3}
   shootRate: 0.5
   agent: {fileID: 2082643776196131220}
-  model: {fileID: 6093844486959187730}
+  model: {fileID: 6093844486959187728}
   rotationSpeed: 5
 --- !u!54 &2082643776196131223
 Rigidbody:
