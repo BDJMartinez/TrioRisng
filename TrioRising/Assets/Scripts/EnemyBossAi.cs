@@ -13,6 +13,7 @@ public class EnemyBossAi : MonoBehaviour, UndeadWarfare.AI.IDamage, IMonster
     [SerializeField] NavMeshAgent agent;
 
     [SerializeField] Renderer model;
+
     [SerializeField] int rotationSpeed;
     [SerializeField] float walkPointRange;
     [SerializeField] LayerMask groundMask, playerMask;

@@ -32,7 +32,7 @@ public class EnemyAI : MonoBehaviour, UndeadWarfare.AI.IDamage, IMonster
     {
         colorOrig = model.material.color;
         gamemanager.instance.updateGameGoal(1);
-        
+       
         
     }
 

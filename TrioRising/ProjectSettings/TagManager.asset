@@ -20,6 +20,7 @@ TagManager:
   - Enemy
   - Spawner
   - Floor
+  - MiniMap
   - Undead
   - 
   - 

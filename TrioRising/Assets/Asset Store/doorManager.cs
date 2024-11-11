@@ -27,34 +27,7 @@ public class doorManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-#if false
-        if (playerInRange && Input.GetButtonDown("Interact"))
-        {
-            isOpen = !isOpen;
-        }
 
-        if (!isOpen)
-        {
-            StartCoroutine(OpenDoor());
-
-                timer += Time.deltaTime;
-                if (timer >= autoCloseTimer)
-                {
-                    StartCoroutine(CloseDoor());
-                    timer = 0f;
-                }
-        }
-        else
-        {
-            StartCoroutine(CloseDoor());
-        }
-
-        if (Input.GetButtonDown("Open"))
-        {
-            OpenDoor();
-            doorTimer();
-        }
-#endif
         if (Input.GetButtonDown("Interact"))
         {
             OpenDoor();

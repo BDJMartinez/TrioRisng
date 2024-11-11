@@ -400,7 +400,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4942472929110521820, guid: 561e7e165a487d3419bd759c532ce656, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 34.92
+      value: 35.23
       objectReference: {fileID: 0}
     - target: {fileID: 4942472929110521820, guid: 561e7e165a487d3419bd759c532ce656, type: 3}
       propertyPath: m_LocalPosition.z
@@ -2658,7 +2658,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4942472929110521820, guid: 561e7e165a487d3419bd759c532ce656, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 34.92
+      value: 35.159
       objectReference: {fileID: 0}
     - target: {fileID: 4942472929110521820, guid: 561e7e165a487d3419bd759c532ce656, type: 3}
       propertyPath: m_LocalPosition.z
@@ -6283,7 +6283,6 @@ MonoBehaviour:
   - {fileID: 6463184372620771200}
   spawnList:
   - {fileID: 2650407911537634883, guid: 6a7a29737e670464491faec6e6a2f8dc, type: 3}
-  spawnCount: 0
   isObjectiveSpawner: 0
 --- !u!135 &523923700616883492
 SphereCollider:
