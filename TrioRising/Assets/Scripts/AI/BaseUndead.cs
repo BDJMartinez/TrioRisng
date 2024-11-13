@@ -116,6 +116,7 @@ namespace UndeadWarfare.AI
             Target = gamemanager.instance.player.gameObject;
             CacheStartingValues();
         }
+
         // Caches the starting values of relevant variables
         public void CacheStartingValues()
         {
@@ -126,6 +127,7 @@ namespace UndeadWarfare.AI
             isAvailable = true;
             StoppingDistanceOriginal = NavAgent.stoppingDistance;
         }
+
         // Updates the AI State
         public void UpdateState(BaseAIState aiState)
         {

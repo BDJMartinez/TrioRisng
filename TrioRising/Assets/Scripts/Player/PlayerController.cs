@@ -85,7 +85,7 @@ namespace UndeadWarfare.Player
         // Update is called once per frame
         void Update()
         {
-            if (gamemanager.instance.isPaused) { return; }          // Skip update if game is paused
+            //if (gamemanager.instance.isPaused) { return; }          // Skip update if game is paused
         }
         
         private void FixedUpdate()
@@ -99,7 +99,7 @@ namespace UndeadWarfare.Player
         {
             Health = MaxHealth;
             interactionDistance = Vector3.Distance(ViewModel.position, interactPoint.position);
-            SpawnPlayer();
+            //SpawnPlayer();
         }
 
         // Spawns the player at a specified point

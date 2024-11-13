@@ -7,5 +7,7 @@ namespace UndeadWarfare.AI.Type
     public enum UndeadType
     {
         Seeker,
+        Kamikaze,
+        Flinger,
     }
 }

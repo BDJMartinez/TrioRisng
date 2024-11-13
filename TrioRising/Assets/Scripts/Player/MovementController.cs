@@ -15,13 +15,13 @@ namespace UndeadWarfare.Player
         public float Gravity { get => gravity; set => gravity = value; }
         public int SprintModifier { get => sprintModifier; set => sprintModifier = value; }
 #endif
-        public bool IsSprinting {  get; private set; }
+        public bool IsSprinting { get; private set; }
         public bool IsCrouching { get; private set; }
         public bool IsJumping { get; private set; }
         public bool IsGrounded { get => isGrounded; set => isGrounded = value; }
         public bool WasGrounded { get => wasGrouned; set => wasGrouned = value; }
 
-#endregion
+        #endregion
 
         #region PLAYER_COMPONENTS
         [Header(" ---- Player Components ---- ")]
@@ -30,6 +30,7 @@ namespace UndeadWarfare.Player
         #endregion
 
         #region BASIC_MOVEMENT
+#if fasle
         // TODO: Add movement parameters
         [Header(" ---- Basic Movement ---- ")]
         [SerializeField] protected float speed;             // Player movemnet speed
@@ -37,6 +38,7 @@ namespace UndeadWarfare.Player
         [SerializeField] protected float jumpSpeed;         // Speed of player jump
         [SerializeField] protected float gravity;           // Strength of Gravity
         [SerializeField] protected int sprintModifier;      // Modifier applied to speed when player is sprinting
+#endif
         #endregion
 
         #region MOVEMENT_SETTINGS
@@ -297,6 +299,7 @@ namespace UndeadWarfare.Player
             IsJumping = true;
         }
         #endregion
+
         // ---- TODO: Add Handlers  for audio. ----
     }
 }

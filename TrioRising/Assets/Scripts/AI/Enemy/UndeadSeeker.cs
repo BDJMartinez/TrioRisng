@@ -51,6 +51,7 @@ namespace UndeadWarfare.AI.Undead
             _currentState = _newState;
             Debug.Log($"Seeker transitioned to {_currentState.Name} state.");
         }
+
         // Checks if the player is within detection range
         public bool IsPlayerInSightRange()
         {
@@ -58,6 +59,7 @@ namespace UndeadWarfare.AI.Undead
             float distanceToPlayer = Vector3.Distance(transform.position, Target.transform.position);
             return distanceToPlayer <= DetectionRange;
         }
+
         // Checks if the player is within attack range
         public bool IsPlayerInAttackRange()
         {
@@ -65,12 +67,14 @@ namespace UndeadWarfare.AI.Undead
             float distanceToPlayer = Vector3.Distance(transform.position, Target.transform.position);
             return distanceToPlayer <= AttackRange;
         }
+
         // Triggers engage behavior at the player
         public void EngageTarget()
         {
             TransitionToState(new EngageState(this));           // Transition to engage state
             Debug.Log("Seeker has engaged the target!");
         }
+
         // Triggers attack behavior against the player
         public void AttackTarget()
         {
@@ -80,14 +84,17 @@ namespace UndeadWarfare.AI.Undead
             Debug.Log($"{this} has transitioned to {this._currentState}");
             // TODO: Attack animation logic
         }
+
         // Inflicts damage on the AI's target when contact is made
         public void InflictDamage() { Target.GetComponent<PlayerController_Deprecated>().TakeDamage(attackDamage, this.gameObject); }         // Inflict damage on the player
+
         // Triggers fleeing behavior if Seeker health falls below the threshold
         public void FleeTarget()
         {
             Debug.Log("Seeker's healh is extremely low; Seeker Fleeing...");
             TransitionToState(new FleeState(this));
         }
+
         // Triggers dead state and clean up
         public void Die()
         {
@@ -96,6 +103,7 @@ namespace UndeadWarfare.AI.Undead
             Destroy(gameObject);
         }
         #endregion
+
         // Checks if collision is with the player via tag, if so inflicts damage on the player
         public void OnCollisionEnter(Collision collision)
         {

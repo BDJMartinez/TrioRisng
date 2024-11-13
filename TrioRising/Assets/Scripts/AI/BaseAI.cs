@@ -11,6 +11,7 @@ namespace UndeadWarfare.AI
     {
         Idle,
         Engage,
+        Queue,
         Attack,
         Flank,
         Flee,

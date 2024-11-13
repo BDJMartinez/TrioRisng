@@ -19,28 +19,36 @@ namespace UndeadWarfare.Interact
 			// Initialize player reference using the singleton instance of the gamemanager 
 			player = gamemanager.instance.player;
 		}
-		// Called with the interaction key is pressed 
-		public virtual void KeyPressed()
+
+        #region KEY_HANDLING
+        // Called with the interaction key is pressed 
+        public virtual void KeyPressed()
 		{
 			// Set player's occupied state to true, preventing further interactions
 			player.GetComponent<PlayerController>();
 		}
+
 		// Called when the interaction key is released 
 		public virtual void KeyReleased()
 		{
 			// Set player's occupied state to false, allowing other interactions
 			player.GetComponent<PlayerController>();
 		}
-		// Displays a prompt to the player with a specific interaction message
-		public virtual void Prompt(string prompt)
+        #endregion
+
+        #region PROMPT_HANDLING
+        // Displays a prompt to the player with a specific interaction message
+        public virtual void Prompt(string prompt)
 		{
 			// Set the prompt trxt in the game's UI
 			gamemanager.instance.PromptText.SetText("[E] " +  prompt);
 		}
+
 		// Overload of the Prompt method for optional behavior
 		public virtual void Prompt()
 		{
 			// Can be overriden in derived classes
 		}
-	}
+        #endregion
+    }
 }
