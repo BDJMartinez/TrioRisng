@@ -28,6 +28,9 @@ public class HitScanWeapon : MonoBehaviour, IWeapon
     float spread;
     bool isReloading;
 
+    public GameObject muzzleFlash;
+    public Transform muzzleFlashPos;
+
 
 
     virtual public void Discard()
@@ -100,12 +103,17 @@ public class HitScanWeapon : MonoBehaviour, IWeapon
 
     IEnumerator Shoot()
     {
-
-
         isShooting = true;
 
-        
-        clipCurrent--;
+        GameObject flash = Instantiate(muzzleFlash, muzzleFlashPos);
+        Destroy(flash, 0.1f);
+
+
+        // Check if this is the last shot in the clip
+        bool isLastBullet = clipCurrent == 1;
+        int currentDamage = isLastBullet ? damage * 2 : damage; // Double the damage if it's the last shot
+
+        clipCurrent--; // Decrease the clip count after firing
 
         gamemanager.instance.updateAmmoUI(clipCurrent, ammo);
 
@@ -117,6 +125,7 @@ public class HitScanWeapon : MonoBehaviour, IWeapon
             ani.Play("Fire");
         }
 
+        // Shoot projectiles
         for (int i = 0; i < totalCasts; ++i)
         {
             RaycastHit hit;
@@ -135,15 +144,18 @@ public class HitScanWeapon : MonoBehaviour, IWeapon
                 Instantiate(gunImpactEffect, position, up);
 
                 Debug.Log(hit.collider.name);
+
                 IDamage dmg = hit.collider.GetComponent<IDamage>();
 
                 if (dmg != null)
                 {
-                    dmg.takeDamage(damage, hit.point);
+                    // Apply damage (double the damage for the last shot)
+                    dmg.takeDamage(currentDamage, hit.point);
                 }
             }
         }
 
+        // Wait for the fire rate delay before finishing
         yield return new WaitForSeconds(fireRate);
         ani.Play("Idle");
         isShooting = false;
