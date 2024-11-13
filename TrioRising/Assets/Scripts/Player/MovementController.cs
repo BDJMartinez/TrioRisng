@@ -95,10 +95,10 @@ namespace UndeadWarfare.Player
         MovementData playerData = new MovementData();
         // Returns the players current velocity 
         public Vector3 Velocity() { return playerData.Velocity; }
-        #endregion
 
         private bool isGrounded;
         private bool wasGrouned;
+        #endregion
 
         #region LIFECYCLE_METHODS
         // Start is called before the first frame update
@@ -115,6 +115,7 @@ namespace UndeadWarfare.Player
         }
         #endregion
 
+        #region CHECKS_&_CALCULATIONS
         private bool CheckHitFloor(out RaycastHit outHit)
         {
             var start = playerData.Position;
@@ -141,12 +142,22 @@ namespace UndeadWarfare.Player
             outHit = default;  // No ground detected
             return false;
         }
+
         // Checks if the player is grounded by evaluating the ground hit
         bool CheckGrounded()
         {
             bool onGround = CheckHitFloor(out RaycastHit hit);
             return onGround;
         }
+
+        // Calculates the direction the player wants to move in
+        Vector3 CalculateMoveDirection()
+        {
+            return new Vector3(playerData.SideMove, 0, playerData.ForwardMove).normalized;
+        }
+        #endregion
+
+        #region HANDLER_METHODS
         // Updates movement input based on player actions
         void UpdateMoveInput()
         {
@@ -169,11 +180,6 @@ namespace UndeadWarfare.Player
             playerData.SideMove = (!inLeft && !inRight) ? 0f : (inLeft ? -Acceleration : inRight ? Acceleration : 0f);
             playerData.ForwardMove = (!inForward && !inBack) ? 0f : (inForward ? Acceleration : inBack ? -Acceleration : 0f);
         }
-        // Calculates the direction the player wants to move in
-        Vector3 CalculateMoveDirection()
-        {
-            return new Vector3(playerData.SideMove, 0, playerData.ForwardMove).normalized;
-        }
 
         // Main function handling movement and gravity application
         void HandleMove()
@@ -195,6 +201,7 @@ namespace UndeadWarfare.Player
 
             WasGrounded = isGrounded;  // Update grounded state
         }
+
         // Applies friction based on the friction amount and ground state
         void ApplyFriction(float amount, bool isGrounded)
         {
@@ -253,6 +260,7 @@ namespace UndeadWarfare.Player
             playerData.Velocity = Vector3.ClampMagnitude(new Vector3(playerData.Velocity.x, 0f, playerData.Velocity.z), 50f);
             playerData.Velocity.y = backupY;
         }
+
         // Method to apply acceleration in a specified direction
         void ApplyAcceleration(Vector3 wishDir, float wishSpeed, float acceleration, bool affectY)
         {
@@ -288,8 +296,7 @@ namespace UndeadWarfare.Player
             playerData.Velocity.y = JumpForce;
             IsJumping = true;
         }
-
+        #endregion
         // ---- TODO: Add Handlers  for audio. ----
-
     }
 }

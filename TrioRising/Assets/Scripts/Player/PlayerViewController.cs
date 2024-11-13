@@ -28,10 +28,8 @@ namespace UndeadWarfare.Player
         [SerializeField] private float maxPitchAgle;
         private int lockVerticalMinimum;
         private int lockVerticalMaximum;
-		#endregion
-
-		// Stores the camera rotation angles: X for pitch, and Y for yaw
-		private Vector2 rotationAngles;
+        private Vector2 rotationAngles;         // Stores the camera rotation angles: X for pitch, and Y for yaw
+        #endregion
 
         #region LIFECYCLE_METHODS
         // ---- Lifecycle Methods ----

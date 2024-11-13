@@ -86,23 +86,27 @@ namespace UndeadWarfare.Player
         void Update()
         {
             if (gamemanager.instance.isPaused) { return; }          // Skip update if game is paused
-
         }
         
         private void FixedUpdate()
         {
-
+            // NOOP
         }
         #endregion
 
+        #region INITIALIZATION
         private void InitializePlayer()
         {
             Health = MaxHealth;
             interactionDistance = Vector3.Distance(ViewModel.position, interactPoint.position);
             SpawnPlayer();
         }
+
         // Spawns the player at a specified point
         private void SpawnPlayer() { transform.position = gamemanager.instance.playerSpawnPOS.transform.position; }        // Set the spawn 
+        #endregion
+
+        #region INTERACTION_&_VIEW_HANDLING
         // Handles playeer interaction with objects in the world
         private void UpdateInteraction()
         {
@@ -121,16 +125,26 @@ namespace UndeadWarfare.Player
                         o.Prompt("To Interact");
                 }
         }
+
         // Load and displays the player's active weapon
         public void LoadViewModel()
         {
+            // Destroy the current view model
+            if(ViewModel.childCount > 0)
+            {
+                for (int i = 0; i < ViewModel.childCount; i++) { Destroy(ViewModel.GetChild(i).gameObject); }
+            }
+            var vieewModel  = Instantiate(HeldWeapon, ViewModel);
 
         }
+
         // Updates player's weapon status and HUD
         private void UpdateWeapons()
         {
 
         }
+        #endregion
+
         // Player takes damage from enemy attacks
         public void TakeDamage(int _amount, GameObject _source)
         {

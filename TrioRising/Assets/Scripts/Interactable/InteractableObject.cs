@@ -23,13 +23,13 @@ namespace UndeadWarfare.Interact
 		public virtual void KeyPressed()
 		{
 			// Set player's occupied state to true, preventing further interactions
-			player.GetComponent<PlayerController>().IsOccupied = true;
+			player.GetComponent<PlayerController>();
 		}
 		// Called when the interaction key is released 
 		public virtual void KeyReleased()
 		{
 			// Set player's occupied state to false, allowing other interactions
-			player.GetComponent<PlayerController>().IsOccupied = false;
+			player.GetComponent<PlayerController>();
 		}
 		// Displays a prompt to the player with a specific interaction message
 		public virtual void Prompt(string prompt)
