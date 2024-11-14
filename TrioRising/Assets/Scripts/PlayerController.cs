@@ -16,6 +16,7 @@ public class PlayerController : MonoBehaviour, EnemyDamage
     [SerializeField] int health;
     [SerializeField] float speed;
     [SerializeField] int jumpMax;
+    [SerializeField] float maxJumpHeight = 5.0f;
     [SerializeField] float jumpSpeed;
     [SerializeField] float gravity;
     [SerializeField] int sprintMod;
@@ -82,6 +83,11 @@ public class PlayerController : MonoBehaviour, EnemyDamage
         {
             jumpCount++;
             playerVelocity.y = jumpSpeed;
+        }
+        
+        if (Input.GetButton("Jump") && playerVelocity.y > 0)
+        {
+            playerVelocity.y += jumpSpeed * Time.deltaTime;
         }
 
         playerVelocity.y -= gravity * Time.deltaTime;
