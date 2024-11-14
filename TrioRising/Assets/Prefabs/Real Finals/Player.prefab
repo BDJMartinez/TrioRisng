@@ -135,6 +135,10 @@ MonoBehaviour:
   maxAmmo: 25
   clipSize: 25
   totalCasts: 20
+  ammo: 0
+  clipCurrent: 0
+  muzzleFlash: {fileID: 0}
+  muzzleFlashPos: {fileID: 0}
 --- !u!82 &3943807558010372642
 AudioSource:
   m_ObjectHideFlags: 0
@@ -619,6 +623,10 @@ MonoBehaviour:
   maxAmmo: 63
   clipSize: 9
   totalCasts: 1
+  ammo: 0
+  clipCurrent: 0
+  muzzleFlash: {fileID: 0}
+  muzzleFlashPos: {fileID: 0}
 --- !u!82 &1120813376506593059
 AudioSource:
   m_ObjectHideFlags: 0
@@ -940,7 +948,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 10306, guid: 0000000000000000f000000000000000, type: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -994,6 +1002,7 @@ MonoBehaviour:
   jumpSpeed: 10
   gravity: 15
   sprintMod: 2
+  jumpTimeSpan: 0
   cam: {fileID: 3041561769269485882}
   controller: {fileID: 3496255182130020221}
   currentWeapon: {fileID: 3500605489064962989}
@@ -1153,6 +1162,10 @@ MonoBehaviour:
   maxAmmo: 300
   clipSize: 300
   totalCasts: 3
+  ammo: 0
+  clipCurrent: 0
+  muzzleFlash: {fileID: 0}
+  muzzleFlashPos: {fileID: 0}
 --- !u!82 &7468437879385613389
 AudioSource:
   m_ObjectHideFlags: 0
@@ -1427,3 +1440,7 @@ MonoBehaviour:
   lockVertMin: -90
   lockVertMax: 90
   invertY: 0
+  bobFrequency: 5
+  bobAmplitude: 0.05
+  bobSway: 0.05
+  playerController: {fileID: 0}

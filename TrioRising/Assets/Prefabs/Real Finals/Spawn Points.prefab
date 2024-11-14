@@ -71,7 +71,6 @@ MonoBehaviour:
   - {fileID: 8445097981763698553}
   spawnList:
   - {fileID: 2650407911537634883, guid: 6a7a29737e670464491faec6e6a2f8dc, type: 3}
-  spawnCount: 0
   isObjectiveSpawner: 0
 --- !u!114 &5629991981740357778
 MonoBehaviour:
@@ -107,7 +106,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 10306, guid: 0000000000000000f000000000000000, type: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
