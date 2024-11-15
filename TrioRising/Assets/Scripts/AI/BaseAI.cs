@@ -14,6 +14,7 @@ namespace UndeadWarfare.AI
         Queue,
         Attack,
         Flank,
+        Retreat,
         Flee,
         Dead
     }
@@ -72,18 +73,21 @@ namespace UndeadWarfare.AI
             targetDirection = Target.transform.position - transform.position;       // Vector from AI to target
             return targetDirection;
         }
+
         // Updates and returns normalized direction to target (Vector3)
         public Vector3 CalculateNormalizedTargetDirection()
         {
             targetDirectionNormalized = CalculateTargetDirection().normalized;      // Normalize target direction 
             return targetDirectionNormalized;
         }
+
         // Updates and returns alignment with target based on AI's facing direction
         public float CalculateTargetFacingAligment()
         {
             targetFacingAlignment = Vector3.Dot(transform.forward, CalculateNormalizedTargetDirection()); // Dot product for alignment
             return targetFacingAlignment;
         }
+
         // Check if the target is visible based on line of sight and angle requirements
         public void CheckTargetVisiblity()
         {
@@ -96,6 +100,7 @@ namespace UndeadWarfare.AI
             else
                 isTargetVisible = false;        // No visiblilty if the raycast did not hit the target
         }
+
         // Check if taget is within proximity distance, with a delay interval to limit checks
         public void CheckTargetProximity(float delayBetweenChecks = 0.1f)
         {
@@ -106,6 +111,7 @@ namespace UndeadWarfare.AI
                 Debug.Log($"Is Near Target: {isNearTarget}");
             }
         }
+
         // Checks if a specific spot has an ubstucted view to the target
         public bool IsTargetVisibleFrom(Vector3 observationSpot)
         {

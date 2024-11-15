@@ -22,7 +22,9 @@ namespace UndeadWarfare.AI
         public bool IsAttacking { get => isAttacking; set => isAttacking = value; }
         public bool IsAvailable { get => isAvailable; set => isAvailable = value; }
         public int AttackTimer { get => attackDamage; set => attackDamage = value; }
+        public bool IsRetreating { get => isRetreating; set => isRetreating = value; }
         public bool IsFleeing { get => isFleeing; set => isFleeing = value; }
+        public BaseAIState CurrentState { get; set; }
         #endregion
 
         #region BASE_UNDEAD 
@@ -34,8 +36,8 @@ namespace UndeadWarfare.AI
 
         #region STATE_&_CONTROL
         // ---- State & AI Control ----
-        public BaseAIState CurrentState;        // Current state of the object
-        public EnemyState CurrentStateName;     // Name of the current state
+        public BaseAIState currentState;        // Current state of the object
+        public EnemyState currentStateName;     // Name of the current state
         public AttackArea AttackArea;           // Area where the AI can attack
         public AttackArea AreaOfEffect;         // Area for larger area-based effects
         #endregion
@@ -52,6 +54,7 @@ namespace UndeadWarfare.AI
         [SerializeField] protected bool isAttacking;
         [SerializeField] protected bool isAvailable;
         [SerializeField] protected float attackTimer;
+        [SerializeField] protected bool isRetreating;
         [SerializeField] protected bool isFleeing;
         [SerializeField] protected Vector3 maxDistance;
         #endregion
@@ -73,20 +76,28 @@ namespace UndeadWarfare.AI
 
         #region CACHED_COMPONENTS_&_VARIABLES
         // ---- Cached Components & Variables ----
-        int orginalHealth;         // Original HP
-        Collider col;
-        Vector3 launchSpot;
-        int originalDamage;         // Orginal Attack Damage
-        float originalSpeed;        // Original Attack Speed
-        float lastTimestamp;             // Timer for status effects
-        float lastApplication;            // Timer for effect Application
+        private int orginalHealth;         // Original HP
+        private Collider col;
+        private Vector3 launchSpot;
+        private int originalDamage;         // Orginal Attack Damage
+        private float originalSpeed;        // Original Attack Speed
+        private float lastTimestamp;             // Timer for status effects
+        private float lastApplication;            // Timer for effect Application
         protected Rigidbody rb;         // RigidBody for physics interactions
+        #endregion
+
+        #region ENEMY_MANAGEMENT
+        // ---- Enemy Management ----
+        protected EnemyManager enemyManager;    // Refrence to the Enemy Manager component, it manages the enemy queue
+        protected Transform retreatPosition;    // Transform indicating the retreat position for the enemy
+        protected float retreatSpeed;   // Speed of the enemy's retreat behavior 
         #endregion
         #endregion
 
         #region LIFECYCLE_METHODS
         void Start()
         {
+            enemyManager = FindAnyObjectByType<EnemyManager>();
             InitializeUndead();
             lastTimestamp = Time.deltaTime;
             UpdateState(new RegisterState(this));
@@ -110,35 +121,35 @@ namespace UndeadWarfare.AI
         // Initial State and configuration
         public void InitializeUndead()
         {
-            rb = GetComponent<Rigidbody>();
-            col = GetComponent<Collider>();
-            navAgent.speed = movementSpeed;
-            Target = gamemanager.instance.player.gameObject;
-            CacheStartingValues();
+            rb = GetComponent<Rigidbody>();     // Cache the rigid body component 
+            col = GetComponent<Collider>();     // Cache the collider component
+            navAgent.speed = movementSpeed;     // Set the navAgent speed using the set movement speed
+            Target = gamemanager.instance.player.gameObject;    // Reference the player as the enemies target
+            CacheStartingValues();      // Cache all the starting values 
         }
 
         // Caches the starting values of relevant variables
         public void CacheStartingValues()
         {
-            originalDamage = attackDamage;
-            originalSpeed = movementSpeed;
-            isGrounded = true;
-            orginalHealth = health;
-            isAvailable = true;
-            StoppingDistanceOriginal = NavAgent.stoppingDistance;
+            originalDamage = attackDamage;      // Cache the starting damage value for future use
+            originalSpeed = movementSpeed;      // Cache the starting movement speed for future use
+            isGrounded = true;      // Set the enemy's grounded state to true
+            orginalHealth = health;     // Cache the starting health for future use
+            isAvailable = true;     // Set the enemy's available to true 
+            StoppingDistanceOriginal = NavAgent.stoppingDistance;       // Cache the starting stopping distance from the navAgent
         }
 
         // Updates the AI State
         public void UpdateState(BaseAIState aiState)
         {
             CurrentState = aiState;
-            CurrentStateName = aiState.Name;
+            currentStateName = aiState.Name;
         }
         #endregion
 
         #region INTERFACE_METHODS
         // ---- IDamage interface methods ----
-
+        #region IDAMAGE
         public void TakeDamage(int _amount, GameObject _source)
         {
 
@@ -154,9 +165,10 @@ namespace UndeadWarfare.AI
 
             if (_amount > 0)
             {
-                if (CurrentStateName == EnemyState.Dead) { return; }        // If AI state is DEAD, do nothing
+                if (currentStateName == EnemyState.Dead) { return; }        // If AI state is DEAD, do nothing
             }
         }
+        #endregion
         #endregion
     }
 }

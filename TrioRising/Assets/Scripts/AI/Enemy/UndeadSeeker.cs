@@ -45,27 +45,12 @@ namespace UndeadWarfare.AI.Undead
         #endregion
 
         #region STATE_CONTROL_&_BEHAVIOR
+        #region STATE
         // Changes the Seekers current state to a new state
         public void TransitionToState(BaseAIState _newState)
         {
             _currentState = _newState;
             Debug.Log($"Seeker transitioned to {_currentState.Name} state.");
-        }
-
-        // Checks if the player is within detection range
-        public bool IsPlayerInSightRange()
-        {
-            if (_currentState != null) return false;
-            float distanceToPlayer = Vector3.Distance(transform.position, Target.transform.position);
-            return distanceToPlayer <= DetectionRange;
-        }
-
-        // Checks if the player is within attack range
-        public bool IsPlayerInAttackRange()
-        {
-            if (_currentState != null) return false;
-            float distanceToPlayer = Vector3.Distance(transform.position, Target.transform.position);
-            return distanceToPlayer <= AttackRange;
         }
 
         // Triggers engage behavior at the player
@@ -85,8 +70,43 @@ namespace UndeadWarfare.AI.Undead
             // TODO: Attack animation logic
         }
 
-        // Inflicts damage on the AI's target when contact is made
-        public void InflictDamage() { Target.GetComponent<PlayerController_Deprecated>().TakeDamage(attackDamage, this.gameObject); }         // Inflict damage on the player
+        private void OnAttackFinished()
+        {
+            TransitionToState(new RetreatingState(this));
+            Debug.Log("Enemy is retreating...");
+        }
+
+        // Adds the Undead enemy to the attack queue
+        public void QueueToAttack()
+        {
+            TransitionToState(new QueueState(this));
+            Debug.Log("Seeker has joined the queue to attack...");
+        }
+
+        // Triggers retreat from the target and rejoins the attack queue
+        public void RetreatFromTarget()
+        {
+            Debug.Log("Seeker is retreating to reenter the queue...");
+            TransitionToState(new RetreatingState(this));
+        }
+
+        private void HandleRetreating()
+        {
+            if (!isRetreating) { return; }
+
+            // Move toward the retreat point 
+            transform.position = Vector3.MoveTowards(transform.position, retreatPosition.position, retreatSpeed * Time.deltaTime);
+            // Check if the AI has reached the retreat point
+            if (Vector3.Distance(transform.position, retreatPosition.position) < 0.1f)
+                FinishRetreat();
+        }
+
+        private void FinishRetreat()
+        {
+            isRetreating = false;
+            enemyManager.AddToQueue(this);
+            TransitionToState(new QueueState(this));
+        }
 
         // Triggers fleeing behavior if Seeker health falls below the threshold
         public void FleeTarget()
@@ -104,13 +124,38 @@ namespace UndeadWarfare.AI.Undead
         }
         #endregion
 
+        #region BEHAVIOR
+        // Checks if the player is within detection range
+        public bool IsPlayerInSightRange()
+        {
+            if (_currentState != null) return false;
+            float distanceToPlayer = Vector3.Distance(transform.position, Target.transform.position);
+            return distanceToPlayer <= DetectionRange;
+        }
+
+        // Checks if the player is within attack range
+        public bool IsPlayerInAttackRange()
+        {
+            if (_currentState != null) return false;
+            float distanceToPlayer = Vector3.Distance(transform.position, Target.transform.position);
+            return distanceToPlayer <= AttackRange;
+        }
+
+        // Inflicts damage on the AI's target when contact is made
+        public void InflictDamage() { Target.GetComponent<PlayerController_Deprecated>().TakeDamage(attackDamage, this.gameObject); }         // Inflict damage on the player
+        #endregion
+        #endregion
+
+        #region HANDLERS
         // Checks if collision is with the player via tag, if so inflicts damage on the player
-        public void OnCollisionEnter(Collision collision)
+        private void OnCollisionEnter(Collision collision)
         {
             if (collision == null) return;
             // If the player is the collider is tagged as the player
             if (collision.collider.CompareTag("Player"))
                 InflictDamage();
         }
+        #endregion
+        
     }
 }
