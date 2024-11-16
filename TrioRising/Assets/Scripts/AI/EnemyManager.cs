@@ -15,8 +15,7 @@ namespace UndeadWarfare.AI
 		// Maximnum number of enemies that can attack the player at any one time
 		[SerializeField] private int MaxActiveEnemies = 2;
 
-		
-		private int activeEnemyCount = 0;			// Current count of enemies actively engaging the player
+		private int activeEnemyCount = 0;		// Current count of enemies actively engaging the player
         #endregion
 
         #region	QUEUE_CONTROL

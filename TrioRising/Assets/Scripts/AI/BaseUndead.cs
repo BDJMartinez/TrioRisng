@@ -76,21 +76,21 @@ namespace UndeadWarfare.AI
 
         #region CACHED_COMPONENTS_&_VARIABLES
         // ---- Cached Components & Variables ----
-        private int orginalHealth;         // Original HP
+        private int orginalHealth;              // Original HP
         private Collider col;
         private Vector3 launchSpot;
-        private int originalDamage;         // Orginal Attack Damage
-        private float originalSpeed;        // Original Attack Speed
-        private float lastTimestamp;             // Timer for status effects
-        private float lastApplication;            // Timer for effect Application
-        protected Rigidbody rb;         // RigidBody for physics interactions
+        private int originalDamage;             // Orginal Attack Damage
+        private float originalSpeed;            // Original Attack Speed
+        private float lastTimestamp;            // Timer for status effects
+        private float lastApplication;          // Timer for effect Application
+        protected Rigidbody rb;                 // RigidBody for physics interactions
         #endregion
 
         #region ENEMY_MANAGEMENT
         // ---- Enemy Management ----
         protected EnemyManager enemyManager;    // Refrence to the Enemy Manager component, it manages the enemy queue
         protected Transform retreatPosition;    // Transform indicating the retreat position for the enemy
-        protected float retreatSpeed;   // Speed of the enemy's retreat behavior 
+        protected float retreatSpeed;           // Speed of the enemy's retreat behavior 
         #endregion
         #endregion
 
@@ -102,6 +102,7 @@ namespace UndeadWarfare.AI
             lastTimestamp = Time.deltaTime;
             UpdateState(new RegisterState(this));
         }
+
         void Update()
         {
             if (IsTargetVisible)
@@ -113,7 +114,6 @@ namespace UndeadWarfare.AI
             {
                 throw new Exception("NO CORRESPONDING STATE");
             }
-
         }
         #endregion
 
@@ -154,10 +154,12 @@ namespace UndeadWarfare.AI
         {
 
         }
+
         public void TakeDamage(int _amount, GameObject _source, bool _weakspot)
         {
 
         }
+
         public void TakeDamage(int _amount, Vector3 _impulsePosition, GameObject _source = null, bool _weakspot = false)
         {
             _amount *= DamageMultiplier;

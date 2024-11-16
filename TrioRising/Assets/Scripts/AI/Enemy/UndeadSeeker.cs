@@ -29,6 +29,7 @@ namespace UndeadWarfare.AI.Undead
             // Initialize with Idle state
             TransitionToState(new IdleState(this));
         }
+
         // Update checks the current state and runs its logic
         private void Update()
         {
@@ -70,6 +71,7 @@ namespace UndeadWarfare.AI.Undead
             // TODO: Attack animation logic
         }
 
+        // Completes attack state then transitions to retreat state
         private void OnAttackFinished()
         {
             TransitionToState(new RetreatingState(this));
@@ -90,6 +92,7 @@ namespace UndeadWarfare.AI.Undead
             TransitionToState(new RetreatingState(this));
         }
 
+        // Moves the enemy to the retreat position
         private void HandleRetreating()
         {
             if (!isRetreating) { return; }
@@ -101,6 +104,7 @@ namespace UndeadWarfare.AI.Undead
                 FinishRetreat();
         }
 
+        // Triggers the end of the retreat state 
         private void FinishRetreat()
         {
             isRetreating = false;
@@ -142,7 +146,7 @@ namespace UndeadWarfare.AI.Undead
         }
 
         // Inflicts damage on the AI's target when contact is made
-        public void InflictDamage() { Target.GetComponent<PlayerController_Deprecated>().TakeDamage(attackDamage, this.gameObject); }         // Inflict damage on the player
+        public void InflictDamage() { Target.GetComponent<PlayerController_Deprecated>().TakeDamage(attackDamage, this.gameObject); }    // Inflict damage on the player
         #endregion
         #endregion
 
@@ -156,6 +160,5 @@ namespace UndeadWarfare.AI.Undead
                 InflictDamage();
         }
         #endregion
-        
     }
 }

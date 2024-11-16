@@ -20,6 +20,7 @@ namespace UndeadWarfare.Interact
 			player = gamemanager.instance.player;
 		}
 
+        #region	HANDLERS
         #region KEY_HANDLING
         // Called with the interaction key is pressed 
         public virtual void KeyPressed()
@@ -49,6 +50,7 @@ namespace UndeadWarfare.Interact
 		{
 			// Can be overriden in derived classes
 		}
+        #endregion
         #endregion
     }
 }
