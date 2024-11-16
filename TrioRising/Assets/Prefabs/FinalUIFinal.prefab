@@ -1599,6 +1599,7 @@ MonoBehaviour:
   menuPause: {fileID: 4142308187581426452}
   menuWin: {fileID: 4142308187573432455}
   menuLose: {fileID: 4142308189535961767}
+  stunnedPlayer: 0
   enemyCountText: {fileID: 4142308189257839523}
   playerHpBar: {fileID: 4142308189390563305}
   playerDamageScreen: {fileID: 4142308188332077450}

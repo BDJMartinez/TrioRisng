@@ -26,6 +26,8 @@ public class PlayerController : MonoBehaviour, EnemyDamage
     [SerializeField] Camera cam;
     [SerializeField] CharacterController controller;
 
+    [SerializeField] private List<buffStorage> inventory;
+
     [SerializeField] GameObject currentWeapon;
     [SerializeField] GameObject handgun;
     [SerializeField] GameObject shotgun;

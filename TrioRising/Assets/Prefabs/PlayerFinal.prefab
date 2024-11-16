@@ -1425,14 +1425,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 100
-  speed: 11
+  speed: 10
   jumpMax: 2
+  maxJumpHeight: 5
   jumpSpeed: 10
   gravity: 15
   sprintMod: 2
   jumpTimeSpan: 0
   cam: {fileID: 4444464671568753275}
   controller: {fileID: 2818431834800385084}
+  inventory: []
   currentWeapon: {fileID: 2813768347423373548}
   handgun: {fileID: 2813768347423373548}
   shotgun: {fileID: 2178148617665349101}
