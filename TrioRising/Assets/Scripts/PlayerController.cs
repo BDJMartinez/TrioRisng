@@ -24,7 +24,6 @@ public class PlayerController : MonoBehaviour, EnemyDamage
     [SerializeField] int sprintMod;
     [SerializeField] float jumpTimeSpan;
 
-
     [SerializeField] Camera cam;
     [SerializeField] CharacterController controller;
 
@@ -67,10 +66,10 @@ public class PlayerController : MonoBehaviour, EnemyDamage
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetButtonDown("Fire1"))
-        {
-            Attack();
-        }
+        //if (Input.GetButtonDown("Fire1"))
+        //{
+        //    Attack();
+        //}
 
         movement();
         sprint();
@@ -277,32 +276,33 @@ public class PlayerController : MonoBehaviour, EnemyDamage
     }
 
 
-    private void Attack()
-    {
-        // Check if the player can attack
-        if (CanAttack())
-        {
-            RaycastHit hit;
-            if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out hit, 10f))
-            {
-                if (hit.collider.CompareTag("Mindseye"))
-                {
-                    mindseyeAttack mindseye = hit.collider.GetComponent<mindseyeAttack>();
-                    if (mindseye != null)
-                    {
-                        Debug.Log("Player attacks the mind's eye!");
+    //private void Attack()
+    //{
+    //    // Check if the player can attack
+    //    if (CanAttack())
+    //    {
+    //        RaycastHit hit;
+    //        if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out hit, 10f))
+    //        {
 
-                        mindseye.TakeDamage(1); // Assuming each attack deals 1 damage
+    //            if (hit.collider.CompareTag("Mindseye"))
+    //            {
+    //                mindseyeAttack mindseye = hit.collider.GetComponent<mindseyeAttack>();
+    //                if (mindseye != null)
+    //                {
+    //                    Debug.Log("Player attacks the mind's eye!");
 
-                    }
-                }
-            }
-        }
-        else
-        {
-            Debug.Log("Cannot attack: Player is frozen or on cooldown.");
-        }
-    }
+    //                    mindseye.TakeDamage(1); // Assuming each attack deals 1 damage
+
+    //                }
+    //            }
+    //        }
+    //    }
+    //    else
+    //    {
+    //        Debug.Log("Cannot attack: Player is frozen or on cooldown.");
+    //    }
+    //}
 
     public bool CanAttack()
     {

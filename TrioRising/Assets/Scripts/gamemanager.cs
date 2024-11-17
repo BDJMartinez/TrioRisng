@@ -72,9 +72,8 @@ public class gamemanager : MonoBehaviour
         dirtyCache = true;
         minimap = GameObject.Find("Canvas").transform.Find("RawImage").gameObject;
 
-        if (gamemanager.instance == null)
+        if (gamemanager.instance = this)
         {
-            gamemanager.instance = this;
             playerInventory = new PlayerInventory();
         }
         else
@@ -261,7 +260,7 @@ public class gamemanager : MonoBehaviour
     public void AddToInventory(BuffPickUps buff)
     {
         playerInventory.AddItem(buff);
-        
+
     }
 
     public PlayerInventory GetPlayerInventory()
@@ -269,6 +268,6 @@ public class gamemanager : MonoBehaviour
         return playerInventory;
     }
 
- 
+
 
 }
