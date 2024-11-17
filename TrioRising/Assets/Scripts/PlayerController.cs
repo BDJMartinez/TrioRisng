@@ -276,33 +276,33 @@ public class PlayerController : MonoBehaviour, EnemyDamage
     }
 
 
-    //private void Attack()
-    //{
-    //    // Check if the player can attack
-    //    if (CanAttack())
-    //    {
-    //        RaycastHit hit;
-    //        if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out hit, 10f))
-    //        {
+    private void Attack()
+    {
+        // Check if the player can attack
+        if (CanAttack())
+        {
+            RaycastHit hit;
+            if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out hit, 10f))
+            {
 
-    //            if (hit.collider.CompareTag("Mindseye"))
-    //            {
-    //                mindseyeAttack mindseye = hit.collider.GetComponent<mindseyeAttack>();
-    //                if (mindseye != null)
-    //                {
-    //                    Debug.Log("Player attacks the mind's eye!");
+                if (hit.collider.CompareTag("Mindseye"))
+                {
+                    mindseyeAttack mindseye = hit.collider.GetComponent<mindseyeAttack>();
+                    if (mindseye != null)
+                    {
+                        Debug.Log("Player attacks the mind's eye!");
 
-    //                    mindseye.TakeDamage(1); // Assuming each attack deals 1 damage
+                        mindseye.TakeDamage(1); // Assuming each attack deals 1 damage
 
-    //                }
-    //            }
-    //        }
-    //    }
-    //    else
-    //    {
-    //        Debug.Log("Cannot attack: Player is frozen or on cooldown.");
-    //    }
-    //}
+                    }
+                }
+            }
+        }
+        else
+        {
+            Debug.Log("Cannot attack: Player is frozen or on cooldown.");
+        }
+    }
 
     public bool CanAttack()
     {

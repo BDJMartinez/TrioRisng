@@ -72,9 +72,9 @@ public class gamemanager : MonoBehaviour
         dirtyCache = true;
         minimap = GameObject.Find("Canvas").transform.Find("RawImage").gameObject;
 
-        //if (gamemanager.instance == null)
+        //if (instance == null)
         //{
-        //    gamemanager.instance = this;
+        //    instance = this;
         //    playerInventory = new PlayerInventory();
         //}
         //else
