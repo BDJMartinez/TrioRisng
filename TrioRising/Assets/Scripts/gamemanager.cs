@@ -25,6 +25,7 @@ public class gamemanager : MonoBehaviour
     [SerializeField] GameObject menuPause;
     [SerializeField] GameObject menuWin;
     [SerializeField] GameObject menuLose;
+    [SerializeField] GameObject menuMain;
 
     [SerializeField] bool stunnedPlayer;
 
@@ -41,6 +42,8 @@ public class gamemanager : MonoBehaviour
     float timeScaleOrig;
     public GameObject player;
 
+    public GameObject minimap;
+
     public bool isPaused;
 
     int enemyCount;
@@ -56,6 +59,7 @@ public class gamemanager : MonoBehaviour
         playerScript = player.GetComponent<PlayerController>();
         playerSpawnPOS = GameObject.FindWithTag("PlayerSpawnPOS");
         dirtyCache = true;
+        minimap = GameObject.Find("Canvas").transform.Find("RawImage").gameObject;
     }
 
     // Update is called once per frame
@@ -178,6 +182,7 @@ public class gamemanager : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
         menuActive.SetActive(false);
         menuActive = null;
+        minimap.SetActive(true);
     }
 
     public void updateGameGoal(int amount)
@@ -186,6 +191,14 @@ public class gamemanager : MonoBehaviour
         enemyCountText.text = enemyCount.ToString("F0");
 
         
+    }
+
+    public void MainMenu()
+    {
+        statePause();
+        menuActive = menuMain;
+        menuActive.SetActive(true);
+        minimap.SetActive(false);
     }
 
     public void youLose()

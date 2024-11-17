@@ -51,7 +51,7 @@ public class PlayerController : MonoBehaviour, EnemyDamage
         HPOrig = health;
         updatePlayerUI();
         spawnPlayer();
-
+        gamemanager.instance.MainMenu();
     }
 
     public void spawnPlayer()
