@@ -8,10 +8,12 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using TMPro;
 using UnityEngine.UI;
+using JetBrains.Annotations;
 
 public class gamemanager : MonoBehaviour
 {
     public static gamemanager instance;
+    private PlayerInventory playerInventory;
 
     public bool StunnedPlayer { get => stunnedPlayer; set => stunnedPlayer = value; }
 
@@ -21,11 +23,20 @@ public class gamemanager : MonoBehaviour
     Vector3 playerPositionCache;
     Quaternion playerRotationCache;
     
+    private PlayerController playerController;
+
     [SerializeField] GameObject menuActive;
     [SerializeField] GameObject menuPause;
     [SerializeField] GameObject menuWin;
     [SerializeField] GameObject menuLose;
     [SerializeField] GameObject menuMain;
+
+   
+    [SerializeField] GameObject inventoryPanel;
+    [SerializeField] GameObject itemSlot;
+    [SerializeField] Transform itemContainer;
+
+    
 
     [SerializeField] bool stunnedPlayer;
 
@@ -60,7 +71,19 @@ public class gamemanager : MonoBehaviour
         playerSpawnPOS = GameObject.FindWithTag("PlayerSpawnPOS");
         dirtyCache = true;
         minimap = GameObject.Find("Canvas").transform.Find("RawImage").gameObject;
+
+        if (gamemanager.instance == null)
+        {
+            gamemanager.instance = this;
+            playerInventory = new PlayerInventory();
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+
     }
+
 
     // Update is called once per frame
     void Update()
@@ -116,7 +139,12 @@ public class gamemanager : MonoBehaviour
             }
             dirtyCache = false;
         }
+
+       
+
     }
+
+    
 
     void clearCache()
     {
@@ -230,6 +258,17 @@ public class gamemanager : MonoBehaviour
     }
 
 
+    public void AddToInventory(BuffPickUps buff)
+    {
+        playerInventory.AddItem(buff);
+        
+    }
 
+    public PlayerInventory GetPlayerInventory()
+    {
+        return playerInventory;
+    }
+
+ 
 
 }

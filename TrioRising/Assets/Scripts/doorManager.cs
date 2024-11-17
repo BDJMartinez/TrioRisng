@@ -28,9 +28,18 @@ public class doorManager : MonoBehaviour
     void Update()
     {
 
-        if (Input.GetButtonDown("Interact"))
+        if (playerInRange && Input.GetButtonDown("Interact"))
         {
-            OpenDoor();
+            ToggleDoor();
+        }
+
+        if (isOpen && autoCloseTimer > 0)
+        {
+            timer += Time.deltaTime;
+            if (timer >= autoCloseTimer)
+            {
+                CloseDoor();
+            }
         }
     }
 
@@ -60,26 +69,38 @@ public class doorManager : MonoBehaviour
         timer = 0f;
     }
 
+    private void ToggleDoor()
+    {
+        if (!isOpen)
+        {
+            CloseDoor();
+        }
+
+        else
+        {
+            OpenDoor();
+        }
+    }
+
     private void OpenDoor()
     {
         this.MoveDoor(openAngle);
+        isOpen = true;
+        timer = 0f;
     }
 
     private void CloseDoor()
     {
         this.MoveDoor(closedAngle);
+        isOpen = false;
     }
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
         {
-            playerInRange = !playerInRange;
-            if (playerInRange)
-            {
-                //isOpen = !isOpen;
-                isOpen = true;
-            }
+            playerInRange = true;
+            
         }
     }
 
@@ -87,13 +108,12 @@ public class doorManager : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            playerInRange = !playerInRange;
+            playerInRange = false;
             if (isOpen)
             {
-                // isOpen = !isOpen;
-                isOpen = false;
+                CloseDoor();
             }
-            CloseDoor();
+            
         }
     }
 
