@@ -1,23 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-public class BuffPickupscript : MonoBehaviour
-{
-    [SerializeField] BuffPickUps buff;
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.CompareTag("Player"))
-        {
-            gamemanager.instance.playerScript.getBuffStats(buff);
-            Destroy(gameObject);
-        }
-    }
-}
+version https://git-lfs.github.com/spec/v1
+oid sha256:f62ef8be5c06e8b90c7e6796a5022d868e6a7fddcca90da71f658ea5f9a7cf81
+size 519

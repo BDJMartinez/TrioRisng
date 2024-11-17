@@ -1,20 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-namespace UndeadWarfare.AI.State
-{
-    public class IdleState : BaseAIState
-    {
-        public IdleState(BaseUndead owner) : base(owner) { Name = EnemyState.Idle;  }
-        public override void Run()
-        {
-            Owner.NavAgent.speed = 0;
-            Owner.IsAvailable = true;
-            Owner.CheckTargetProximity();
-            Owner.CheckTargetVisiblity();
-            if (Owner.IsNearTarget && Owner.IsTargetVisible)
-                Owner.UpdateState(new EngageState(Owner));
-        }
-    }
-}
+version https://git-lfs.github.com/spec/v1
+oid sha256:bb2526162472b64ee839fd6f43a0f766474d6c5a156bbd3cc96a9c9d7ef4831a
+size 590

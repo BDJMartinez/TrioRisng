@@ -1,34 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-namespace UndeadWarfare.AI
-{
-    public class RegisterState : BaseAIState
-    {
-        public RegisterState(BaseUndead owner) : base(owner) { Name = EnemyState.Engage; }
-
-        public override void Run()
-        {
-            // NOOP
-        }
-    }
-
-    public abstract class BaseAIState : MonoBehaviour
-    {
-        public BaseUndead Owner;
-
-        public EnemyState Name;
-
-        public string FunctionName;
-
-
-        public BaseAIState(BaseUndead owner)
-        {
-            Owner = owner; 
-        }
-
-        public GameObject GetOwner() { return Owner.Target = gamemanager.instance.player.gameObject; }
-        public abstract void Run();
-    }
-}
+version https://git-lfs.github.com/spec/v1
+oid sha256:09d4514f1f5e693f4c16044a0a99c233b572ecf69d88057f9a29e0ee1b672512
+size 737

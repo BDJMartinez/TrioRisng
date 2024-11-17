@@ -1,32 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
-using UnityEngine;
-
-namespace UndeadWarfare.AI
-{
-    public class EnemyHotspot : BaseUndead, IDamage
-    {
-        [Header(" ---- Hot Spot Properties ---- ")]
-        [Tooltip("Reference to this base enemy health component.")]
-        [SerializeField] private IDamage enemyDamageReciever;       // Reference to the parent recieving the damage
-
-        private void Start()
-        {
-            if (enemyDamageReciever == null)
-            {
-                Debug.LogWarning("Enemy Hot Spot: No IDamage reciever found. Refer to the inspector for assignment.");
-            }
-        }
-        // Detects collision with a projectile to determine if the hotspot was hit
-        private void OnCollisionEnter(Collision collision)
-        {
-            if (collision.gameObject.CompareTag("PlayerProjectile")) { HandleProjectileHit(collision.gameObject); }
-        }
-        // Handles the logic with the hotspot is hit with a projectile 
-        private void HandleProjectileHit(GameObject _projectile)
-        {
-            // TODO: Add collision handling logic for projectiles on target
-        }
-    }
-}
+version https://git-lfs.github.com/spec/v1
+oid sha256:94c6cc638944424af00e0ea94d1cd104b3a23210168b846225e9911b1395a272
+size 1192
