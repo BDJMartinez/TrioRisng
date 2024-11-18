@@ -24,7 +24,6 @@ public class PlayerController : MonoBehaviour, EnemyDamage
     [SerializeField] int sprintMod;
     [SerializeField] float jumpTimeSpan;
 
-
     [SerializeField] Camera cam;
     [SerializeField] CharacterController controller;
 
@@ -52,7 +51,7 @@ public class PlayerController : MonoBehaviour, EnemyDamage
         HPOrig = health;
         updatePlayerUI();
         spawnPlayer();
-
+        gamemanager.instance.MainMenu();
     }
 
     public void spawnPlayer()
@@ -67,10 +66,10 @@ public class PlayerController : MonoBehaviour, EnemyDamage
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetButtonDown("Fire1"))
-        {
-            Attack();
-        }
+        //if (Input.GetButtonDown("Fire1"))
+        //{
+        //    Attack();
+        //}
 
         movement();
         sprint();
@@ -285,6 +284,7 @@ public class PlayerController : MonoBehaviour, EnemyDamage
             RaycastHit hit;
             if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out hit, 10f))
             {
+
                 if (hit.collider.CompareTag("Mindseye"))
                 {
                     mindseyeAttack mindseye = hit.collider.GetComponent<mindseyeAttack>();
