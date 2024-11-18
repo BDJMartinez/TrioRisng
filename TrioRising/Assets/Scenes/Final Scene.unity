@@ -33218,6 +33218,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 53190389582576789, guid: d5cd6b1d98290f74f833ead2d942eebf, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4142308188179680144, guid: d5cd6b1d98290f74f833ead2d942eebf, type: 3}
       propertyPath: dummy
       value: 
@@ -33313,6 +33317,18 @@ PrefabInstance:
     - target: {fileID: 4142308189448981850, guid: d5cd6b1d98290f74f833ead2d942eebf, type: 3}
       propertyPath: m_Name
       value: FinalUIFinal
+      objectReference: {fileID: 0}
+    - target: {fileID: 4868616235433213586, guid: d5cd6b1d98290f74f833ead2d942eebf, type: 3}
+      propertyPath: m_Value
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5623160810881828048, guid: d5cd6b1d98290f74f833ead2d942eebf, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6068108651440050681, guid: d5cd6b1d98290f74f833ead2d942eebf, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d5cd6b1d98290f74f833ead2d942eebf, type: 3}
