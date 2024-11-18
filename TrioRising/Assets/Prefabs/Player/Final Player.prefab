@@ -1198,6 +1198,7 @@ MonoBehaviour:
   health: 100
   speed: 3
   jumpMax: 2
+  maxJumpHeight: 5
   jumpSpeed: 5
   gravity: 15
   sprintMod: 3
