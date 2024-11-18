@@ -21327,11 +21327,6 @@ SkinnedMeshRenderer:
     m_Center: {x: -0.025452781, y: -0.37643555, z: 0.017970446}
     m_Extent: {x: 0.09580159, y: 0.38216278, z: 0.030887447}
   m_DirtyAABB: 0
---- !u!20 &1383459399 stripped
-Camera:
-  m_CorrespondingSourceObject: {fileID: 4444464671568753275, guid: eed7af3843aa6d04290260ef78fbe207, type: 3}
-  m_PrefabInstance: {fileID: 417319633096251385}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1384316163
 GameObject:
   m_ObjectHideFlags: 0
@@ -32823,10 +32818,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2887395403401787136, guid: eed7af3843aa6d04290260ef78fbe207, type: 3}
-      propertyPath: playerCamera
-      value: 
-      objectReference: {fileID: 1383459399}
     - target: {fileID: 6426648653225849182, guid: eed7af3843aa6d04290260ef78fbe207, type: 3}
       propertyPath: m_Name
       value: PlayerFinal
@@ -33218,10 +33209,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 53190389582576789, guid: d5cd6b1d98290f74f833ead2d942eebf, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 4142308188179680144, guid: d5cd6b1d98290f74f833ead2d942eebf, type: 3}
       propertyPath: dummy
       value: 
@@ -33317,18 +33304,6 @@ PrefabInstance:
     - target: {fileID: 4142308189448981850, guid: d5cd6b1d98290f74f833ead2d942eebf, type: 3}
       propertyPath: m_Name
       value: FinalUIFinal
-      objectReference: {fileID: 0}
-    - target: {fileID: 4868616235433213586, guid: d5cd6b1d98290f74f833ead2d942eebf, type: 3}
-      propertyPath: m_Value
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5623160810881828048, guid: d5cd6b1d98290f74f833ead2d942eebf, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6068108651440050681, guid: d5cd6b1d98290f74f833ead2d942eebf, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d5cd6b1d98290f74f833ead2d942eebf, type: 3}
