@@ -74,7 +74,7 @@ namespace UndeadWarfare.AI.Undead
         // Triggers attack behavior against the player
         public void AttackTarget()
         {
-            this.IsEngagingTarget = !this.IsEngagingTarget;     // Toggle off when transitioning to the new state
+            //this.IsEngagingTarget = !this.IsEngagingTarget;     // Toggle off when transitioning to the new state
             Debug.Log($"{this} is attacking the target");
             TransitionToState(new BaseAttackState(this));       // Transition to attack state
             Debug.Log($"{this} has transitioned to {this._currentState}");

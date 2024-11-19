@@ -12,6 +12,8 @@ public class PlayerController : MonoBehaviour, EnemyDamage
 {
     public float Speed { get => speed; set => speed = value; }
     public bool IsFrozen { get => isFrozen; set => isFrozen = value; }
+    //public bool IsSprinting { get => isFrozen; protected set => isFrozen = value; }
+    public bool IsOccupied { get => isOccupied; set => isOccupied = value; }    
 
     [SerializeField] int health;
     [SerializeField] float speed;
@@ -37,6 +39,7 @@ public class PlayerController : MonoBehaviour, EnemyDamage
     private bool isSprinting;
     bool continuousFire;
     bool swapping;
+    protected bool isOccupied;
 
     bool isFrozen; //Freeze state
     //GameObject pe;

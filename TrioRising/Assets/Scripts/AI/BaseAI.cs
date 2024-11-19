@@ -28,7 +28,7 @@ namespace UndeadWarfare.AI
         public NavMeshAgent NavAgent { get => navAgent; }
         public bool IsTargetVisible { get => isTargetVisible; set => IsTargetVisible = value; }
         public bool IsNearTarget { get => isNearTarget; set => IsNearTarget = value; }
-        public bool IsEngagingTarget { get => isEngagingTarget; set => IsEngagingTarget = value; }
+        public bool IsEngagingTarget { get => isEngagingTarget; set => isEngagingTarget = value; }
         #endregion
 
         #region AI_BEHAVIORIAL_PROPERTIES

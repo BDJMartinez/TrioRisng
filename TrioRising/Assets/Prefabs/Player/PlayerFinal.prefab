@@ -12,8 +12,8 @@ GameObject:
   - component: {fileID: 8703918097530575176}
   - component: {fileID: 6317760861109229758}
   - component: {fileID: 1108036030255178545}
-  - component: {fileID: 2887395403401787136}
   - component: {fileID: 2818431834800385084}
+  - component: {fileID: 6584827545938612685}
   m_Layer: 3
   m_Name: PlayerFinal
   m_TagString: Player
@@ -101,30 +101,6 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &2887395403401787136
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6426648653225849182}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9dba10447c5960b42b84eac200108b79, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  health: 100
-  speed: 14
-  jumpMax: 2
-  jumpSpeed: 10
-  gravity: 15
-  sprintMod: 2
-  cam: {fileID: 4444464671568753275}
-  controller: {fileID: 2818431834800385084}
-  currentWeapon: {fileID: 2813768347423373548}
-  handgun: {fileID: 2813768347423373548}
-  shotgun: {fileID: 2178148617665349101}
-  submachinegun: {fileID: 5702777698793808770}
 --- !u!143 &2818431834800385084
 CharacterController:
   m_ObjectHideFlags: 0
@@ -143,6 +119,31 @@ CharacterController:
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &6584827545938612685
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6426648653225849182}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eb89ae7fbfabe2c479e463eaa4206ab7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 100
+  speed: 15
+  jumpMax: 7
+  jumpSpeed: 15
+  gravity: 5
+  sprintMod: 2
+  jumpTimeSpan: 3
+  cam: {fileID: 4444464671568753275}
+  controller: {fileID: 2818431834800385084}
+  currentWeapon: {fileID: 0}
+  handgun: {fileID: 0}
+  shotgun: {fileID: 0}
+  submachinegun: {fileID: 0}
 --- !u!1 &7586459068671838535
 GameObject:
   m_ObjectHideFlags: 0
@@ -245,6 +246,10 @@ MonoBehaviour:
   lockVertMin: -90
   lockVertMax: 90
   invertY: 0
+  bobFrequency: 5
+  bobAmplitude: 0.05
+  bobSway: 0.05
+  playerController: {fileID: 6584827545938612685}
 --- !u!1001 &8518015351501549433
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -314,21 +319,6 @@ PrefabInstance:
       objectReference: {fileID: 7586459068671838535}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4e85d22dae8fffc4e9c5c4ee55222349, type: 3}
---- !u!1 &2178148617665349101 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 7497446045058689684, guid: 4e85d22dae8fffc4e9c5c4ee55222349, type: 3}
-  m_PrefabInstance: {fileID: 8518015351501549433}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &2813768347423373548 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 5853151965868627861, guid: 4e85d22dae8fffc4e9c5c4ee55222349, type: 3}
-  m_PrefabInstance: {fileID: 8518015351501549433}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &5702777698793808770 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4112428363187817723, guid: 4e85d22dae8fffc4e9c5c4ee55222349, type: 3}
-  m_PrefabInstance: {fileID: 8518015351501549433}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &5905155677165533098 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2865769416275515603, guid: 4e85d22dae8fffc4e9c5c4ee55222349, type: 3}
