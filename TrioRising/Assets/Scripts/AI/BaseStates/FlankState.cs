@@ -1,25 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-namespace UndeadWarfare.AI.State
-{
-    public class FlankState : BaseAIState
-    {
-        public FlankState(BaseUndead owner) : base(owner) { Name = EnemyState.Flank; }
-        public override void Run()
-        {
-            Owner.IsAvailable = false;
-            Owner.Target = gamemanager.instance.player.gameObject;
-            Vector3 flankDirection = CalculateFlankDirection();
-        }
-
-        private Vector3 CalculateFlankDirection()
-        {
-            Vector3 toTarget = Owner.Target.transform.position - Owner.transform.position;
-            Vector3 flankDirection = Quaternion.Euler( 0, 90, 0  ) * toTarget.normalized;
-            flankDirection = Random.value > 0.5f ? flankDirection : -flankDirection;
-            return flankDirection * 3f;
-        }
-    }
-}
+version https://git-lfs.github.com/spec/v1
+oid sha256:6151f70272059017377368657ad39b7d4bf4ffb20a014c683a363d359d07e1ff
+size 860

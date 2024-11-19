@@ -1,34 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-public class Checkpoint : MonoBehaviour
-{
-    // Start is called before the first frame update
-
-    [SerializeField] Renderer model;
-
-    Color colorOrig;
-
-    void Start()
-    {
-        colorOrig = model.material.color;   
-    }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        if(other.CompareTag("Player"))
-        {
-            gamemanager.instance.playerSpawnPOS.transform.position = transform.position;
-            StartCoroutine(flashColor());
-        }
-    }
-
-    IEnumerator flashColor()
-    {
-        model.material.color = Color.red;
-        yield return new WaitForSeconds(0.25f);
-        model.material.color = colorOrig;
-    }
-
-}
+version https://git-lfs.github.com/spec/v1
+oid sha256:0cef8af118d2a1f5cd5252c492cc1484e20c2ab16361aa9f06eeeb28f80267b5
+size 738

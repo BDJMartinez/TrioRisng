@@ -1,33 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-namespace UndeadWarfare.Player.Crafting
-{
-    public enum InventoryItem
-    {
-        None = 0,
-        TestItem = 1 << 0,
-    }
-    public class Inventory : MonoBehaviour
-    {
-        public int inventoryBitField;
-
-        #region INVENTORY_MANIPULATION
-        public void AddItem(InventoryItem item)
-        {
-            inventoryBitField |= (int)item;
-        }
-
-        public void RemoveItem(InventoryItem item)
-        {
-            inventoryBitField &= ~(int)item;
-        }
-
-        public bool CheckForItem(InventoryItem item)
-        {
-            return (inventoryBitField & (int)item) == (int)item;
-        }
-        #endregion
-    }
-}
+version https://git-lfs.github.com/spec/v1
+oid sha256:f9f4881dc7787d42c2392c8e42fffb3bbe6ac45f9d5e1e93df0e967bdaf16acd
+size 731

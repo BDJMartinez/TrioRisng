@@ -1,26 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-public class tempPlayerControl : MonoBehaviour
-{
-    [SerializeField] int tSpeed;
-
-    Vector3 tmoveDir;
-
-
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        tmoveDir = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
-        transform.position += tmoveDir * tSpeed * Time.deltaTime;
-        
-    }
-}
+version https://git-lfs.github.com/spec/v1
+oid sha256:c7a440973368f5b596575dba8a7d6f75bd4b445265809b5d83d49ccdd7d54b28
+size 517
