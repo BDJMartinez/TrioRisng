@@ -1,25 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.SceneManagement;
-
-public class LoadNewScene : MonoBehaviour
-{
-
-
-    public string sceneName;
-
-    
-
-
-    private void OnTriggerEnter(Collider other)
-    {
-        
-        if (other.CompareTag("Player")&&gamemanager.instance.GetEnemyCount()<=0)
-        {
-            // Load the new scene
-            SceneManager.LoadScene(sceneName);
-        }
-    }
-
-}
+version https://git-lfs.github.com/spec/v1
+oid sha256:33a8c287d5c4fb1bf61fdf5897303db379788809ef15a9ef0e8331ac12aa2669
+size 452
