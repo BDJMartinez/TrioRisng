@@ -12,17 +12,17 @@ public class PlayerController : MonoBehaviour, EnemyDamage
 {
     public float Speed { get => speed; set => speed = value; }
     public bool IsFrozen { get => isFrozen; set => isFrozen = value; }
-
-    public PlayerInventory Inventory { get; set; }
+    //public bool IsSprinting { get => isFrozen; protected set => isFrozen = value; }
+    public bool IsOccupied { get => isOccupied; set => isOccupied = value; }    
 
     [SerializeField] int health;
     [SerializeField] float speed;
     [SerializeField] int jumpMax;
-    [SerializeField] float maxJumpHeight = 5.0f;
     [SerializeField] float jumpSpeed;
     [SerializeField] float gravity;
     [SerializeField] int sprintMod;
     [SerializeField] float jumpTimeSpan;
+
 
     [SerializeField] Camera cam;
     [SerializeField] CharacterController controller;
@@ -39,6 +39,7 @@ public class PlayerController : MonoBehaviour, EnemyDamage
     private bool isSprinting;
     bool continuousFire;
     bool swapping;
+    protected bool isOccupied;
 
     bool isFrozen; //Freeze state
     //GameObject pe;
@@ -46,12 +47,11 @@ public class PlayerController : MonoBehaviour, EnemyDamage
     // Start is called before the first frame update
     void Start()
     {
-        
         continuousFire = false;
         HPOrig = health;
         updatePlayerUI();
         spawnPlayer();
-        gamemanager.instance.MainMenu();
+
     }
 
     public void spawnPlayer()
@@ -66,16 +66,9 @@ public class PlayerController : MonoBehaviour, EnemyDamage
     // Update is called once per frame
     void Update()
     {
-        //if (Input.GetButtonDown("Fire1"))
-        //{
-        //    Attack();
-        //}
-
         movement();
         sprint();
     }
-
-
 
     void movement()
     {
@@ -92,11 +85,6 @@ public class PlayerController : MonoBehaviour, EnemyDamage
         {
             jumpCount++;
             playerVelocity.y = jumpSpeed;
-        }
-        
-        if (Input.GetButton("Jump") && playerVelocity.y > 0)
-        {
-            playerVelocity.y += jumpSpeed * Time.deltaTime;
         }
 
         playerVelocity.y -= gravity * Time.deltaTime;
@@ -146,6 +134,9 @@ public class PlayerController : MonoBehaviour, EnemyDamage
         }
 
     }
+
+   
+
 
     void swapWeapons(GameObject weapon)
     {
@@ -261,11 +252,6 @@ public class PlayerController : MonoBehaviour, EnemyDamage
         speed /= speedMultiplier;
     }
 
-    public void CollectItems(BuffPickUps buff)
-    {
-        gamemanager.instance.AddToInventory(buff);
-    }
-
     public bool IsMoving()
     {
         return movementDir.magnitude > 0;
@@ -274,43 +260,4 @@ public class PlayerController : MonoBehaviour, EnemyDamage
     {
         return isSprinting;
     }
-
-
-    private void Attack()
-    {
-        // Check if the player can attack
-        if (CanAttack())
-        {
-            RaycastHit hit;
-            if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out hit, 10f))
-            {
-
-                if (hit.collider.CompareTag("Mindseye"))
-                {
-                    mindseyeAttack mindseye = hit.collider.GetComponent<mindseyeAttack>();
-                    if (mindseye != null)
-                    {
-                        Debug.Log("Player attacks the mind's eye!");
-
-                        mindseye.TakeDamage(1); // Assuming each attack deals 1 damage
-
-                    }
-                }
-            }
-        }
-        else
-        {
-            Debug.Log("Cannot attack: Player is frozen or on cooldown.");
-        }
-    }
-
-    public bool CanAttack()
-    {
-        return !IsFrozen;
-    }
-} 
-
-
-
-
-
+}

@@ -6,7 +6,7 @@ namespace UndeadWarfare.AI
 {
     public class RegisterState : BaseAIState
     {
-        public RegisterState(BaseUndead owner) : base(owner) { Name = EnemyState.Seek; }
+        public RegisterState(BaseUndead owner) : base(owner) { Name = EnemyState.Engage; }
 
         public override void Run()
         {
@@ -28,6 +28,7 @@ namespace UndeadWarfare.AI
             Owner = owner; 
         }
 
+        public GameObject GetOwner() { return Owner.Target = gamemanager.instance.player.gameObject; }
         public abstract void Run();
     }
 }

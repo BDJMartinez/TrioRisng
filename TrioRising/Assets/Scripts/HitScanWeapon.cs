@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UndeadWarfare.AI;
 
 public class HitScanWeapon : MonoBehaviour, IWeapon
 {

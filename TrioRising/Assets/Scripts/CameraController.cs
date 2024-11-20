@@ -23,6 +23,7 @@ public class CameraController : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
         initialPosition = transform.localPosition;
+        playerController = GetComponentInParent<PlayerController>();
     }
 
     void Update()
@@ -35,7 +36,7 @@ public class CameraController : MonoBehaviour
             rotx -= mouseY;
         else
             rotx += mouseY;
-
+        
         rotx = Mathf.Clamp(rotx, lockVertMin, lockVertMax);
         transform.localRotation = Quaternion.Euler(rotx, 0, 0);
         transform.parent.Rotate(Vector3.up * mouseX);

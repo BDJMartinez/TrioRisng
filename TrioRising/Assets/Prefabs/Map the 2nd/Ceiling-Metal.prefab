@@ -18,8 +18,8 @@ GameObject:
   m_Name: Ceiling-Metal
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 1
-  m_StaticEditorFlags: 8
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &8304787461753046659
 Transform:
@@ -618,7 +618,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 138
+  m_VersionIndex: 129
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []

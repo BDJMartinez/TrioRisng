@@ -16,8 +16,8 @@ GameObject:
   m_Name: Door-Ledge
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 1
-  m_StaticEditorFlags: 8
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &2622281287908250132
 Transform:
@@ -28,7 +28,7 @@ Transform:
   m_GameObject: {fileID: 2622281287908250128}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 1111.6, y: 38.14, z: 227.7842}
-  m_LocalScale: {x: 1, y: 2.4879982, z: 5.220046}
+  m_LocalScale: {x: 1, y: 2.5, z: 5}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}

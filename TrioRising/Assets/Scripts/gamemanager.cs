@@ -8,12 +8,13 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using TMPro;
 using UnityEngine.UI;
-using JetBrains.Annotations;
+using UndeadWarfare.Player;
 
 public class gamemanager : MonoBehaviour
 {
     public static gamemanager instance;
-    private PlayerInventory playerInventory;
+
+    public TMP_Text PromptText { get => promptText; set => promptText = value; }
 
     public bool StunnedPlayer { get => stunnedPlayer; set => stunnedPlayer = value; }
 
@@ -23,37 +24,28 @@ public class gamemanager : MonoBehaviour
     Vector3 playerPositionCache;
     Quaternion playerRotationCache;
     
-    private PlayerController playerController;
-
     [SerializeField] GameObject menuActive;
     [SerializeField] GameObject menuPause;
     [SerializeField] GameObject menuWin;
     [SerializeField] GameObject menuLose;
-    [SerializeField] GameObject menuMain;
-
-   
-    [SerializeField] GameObject inventoryPanel;
-    [SerializeField] GameObject itemSlot;
-    [SerializeField] Transform itemContainer;
-
-    
 
     [SerializeField] bool stunnedPlayer;
 
     [SerializeField] TMP_Text enemyCountText;
 
+    [SerializeField] public GameObject PromptBackground;
+    [SerializeField] TMP_Text promptText;
+
     public Image playerHpBar;
 
     public GameObject playerDamageScreen;
-    public PlayerController playerScript;
+    public PlayerController_Deprecated playerScript;
     public GameObject playerSpawnPOS;
     public TMP_Text ammoCur, ammoMax;
     [SerializeField] GameObject dummy;
 
     float timeScaleOrig;
     public GameObject player;
-
-    public GameObject minimap;
 
     public bool isPaused;
 
@@ -67,23 +59,10 @@ public class gamemanager : MonoBehaviour
         instance = this;
         timeScaleOrig = Time.timeScale;
         player = GameObject.FindWithTag("Player");
-        playerScript = player.GetComponent<PlayerController>();
+        playerScript = player.GetComponent<PlayerController_Deprecated>();
         playerSpawnPOS = GameObject.FindWithTag("PlayerSpawnPOS");
         dirtyCache = true;
-        minimap = GameObject.Find("Canvas").transform.Find("RawImage").gameObject;
-
-        //if (instance == null)
-        //{
-        //    instance = this;
-        //    playerInventory = new PlayerInventory();
-        //}
-        //else
-        //{
-        //    Destroy(gameObject);
-        //}
-
     }
-
 
     // Update is called once per frame
     void Update()
@@ -139,12 +118,7 @@ public class gamemanager : MonoBehaviour
             }
             dirtyCache = false;
         }
-
-       
-
     }
-
-    
 
     void clearCache()
     {
@@ -210,7 +184,6 @@ public class gamemanager : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
         menuActive.SetActive(false);
         menuActive = null;
-        minimap.SetActive(true);
     }
 
     public void updateGameGoal(int amount)
@@ -219,14 +192,6 @@ public class gamemanager : MonoBehaviour
         enemyCountText.text = enemyCount.ToString("F0");
 
         
-    }
-
-    public void MainMenu()
-    {
-        statePause();
-        menuActive = menuMain;
-        menuActive.SetActive(true);
-        minimap.SetActive(false);
     }
 
     public void youLose()
@@ -256,19 +221,4 @@ public class gamemanager : MonoBehaviour
     {
 
     }
-
-
-    public void AddToInventory(BuffPickUps buff)
-    {
-        playerInventory.AddItem(buff);
-        
-    }
-
-    public PlayerInventory GetPlayerInventory()
-    {
-        return playerInventory;
-    }
-
- 
-
 }

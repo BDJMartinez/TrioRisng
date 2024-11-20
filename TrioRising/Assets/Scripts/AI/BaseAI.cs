@@ -10,7 +10,7 @@ namespace UndeadWarfare.AI
     public enum EnemyState
     {
         Idle,
-        Seek,
+        Engage,
         Attack,
         Flank,
         Flee,
@@ -19,6 +19,7 @@ namespace UndeadWarfare.AI
 
     public class BaseAI : MonoBehaviour
     {
+        #region PUBLIC_PROPERTIES
         // -----Public Properties----
         // Getter & Setters for proximatity to target and speed of orientation to target
         public float ProximityDistance { get => proximityDistance; set => proximityDistance = value; }
@@ -26,7 +27,11 @@ namespace UndeadWarfare.AI
         // Public getter of NavMeshAgent
         public NavMeshAgent NavAgent { get => navAgent; }
         public bool IsTargetVisible { get => isTargetVisible; set => IsTargetVisible = value; }
+        public bool IsNearTarget { get => isNearTarget; set => IsNearTarget = value; }
+        public bool IsEngagingTarget { get => isEngagingTarget; set => isEngagingTarget = value; }
+        #endregion
 
+        #region AI_BEHAVIORIAL_PROPERTIES
         [Header("---Targeting and Movement---")]
         public GameObject Target;
         [SerializeField] private int rotationSpeedTowardsTarget;
@@ -46,15 +51,20 @@ namespace UndeadWarfare.AI
 
         private bool isTargetVisible;
         private bool isNearTarget;
+        private bool isEngagingTarget;
         private float lastProximityCheckTimestamp;      // Stores the last time proximity was checked
+        #endregion
 
+        #region LIFECYCLE_MEHTODS
         private void Start()
         {
             // NOOP
         }
+        #endregion
 
+        #region TARGET_DETECTION_&_VISIBILITY
         // ---- Target Detection and Visiblity Methods ----
-        
+
         // Calculate and updates direction to the target; returns this direction 
         public Vector3 CalculateTargetDirection()
         {
@@ -74,12 +84,13 @@ namespace UndeadWarfare.AI
             return targetFacingAlignment;
         }
         // Check if the target is visible based on line of sight and angle requirements
-        public void CheckTargetVisiblityy()
+        public void CheckTargetVisiblity()
         {
             if (Physics.Raycast(transform.position, CalculateTargetDirection(), out RaycastHit visibilityHit, targetDetectionRange))
             {
                 Debug.DrawRay(transform.position, targetDirection, Color.green);        // Debug Ray
                 isTargetVisible = visibilityHit.collider.CompareTag("Player") && CalculateTargetFacingAligment() > minAngleToDetection;
+                Debug.Log("Target is visible...");
             }
             else
                 isTargetVisible = false;        // No visiblilty if the raycast did not hit the target
@@ -91,6 +102,7 @@ namespace UndeadWarfare.AI
             {
                 isNearTarget = CalculateDistanceToTarget() <= proximityDistance;        // Check proximity distance to target
                 lastProximityCheckTimestamp = Time.time;        // Update last time checked
+                Debug.Log($"Is Near Target: {isNearTarget}");
             }
         }
         // Checks if a specific spot has an ubstucted view to the target
@@ -104,9 +116,11 @@ namespace UndeadWarfare.AI
 
             return true;        // Return true if no obstacles found
         }
-       
+        #endregion
+
+        #region MOVEMENT_&_POSITONING
         // ---- Movement and Positioning Methods ----
-        
+
         // Smoothly rotates the AI to face the target
         public void RotateTowardsTarget()
         {
@@ -125,5 +139,12 @@ namespace UndeadWarfare.AI
             navAgent.stoppingDistance = StoppingDistanceOriginal;       // Set the stopping distance 
             navAgent.SetDestination(desiredMovePosition);       // Move to the desire 
         }
+
+        public Vector3 SetDesiredPosition(Vector3 _desiredMovePosition)
+        {
+            desiredMovePosition = _desiredMovePosition;
+            return desiredMovePosition;
+        }
+        #endregion
     }
 }

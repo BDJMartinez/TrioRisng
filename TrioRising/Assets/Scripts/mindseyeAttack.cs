@@ -8,8 +8,7 @@ public class mindseyeAttack : MonoBehaviour
     public float AttackCooldown { get => attackCooldown; set => attackCooldown = value; }
     public float AttackCooldownTimer { get => attackCooldownTimer; set => attackCooldownTimer = value; }
     public float StunTime { get => stunTime; set => stunTime = value; }
-   // public float StunTimer { get => stunTimer; set => stunTimer = value; }
-
+    public float StunTimer { get => stunTimer; set => stunTimer = value; }
 
     public GameObject player;
     public PlayerController playerController;
@@ -18,12 +17,7 @@ public class mindseyeAttack : MonoBehaviour
     private float attackCooldown = 10f;
     private float attackCooldownTimer;
     private float stunTime = 5f;
-    //private float stunTimer;
-
-    private int health;
-
-    public spawnManager[] enemySpawns;
-
+    private float stunTimer;
 
     private void Start()
     {
@@ -39,7 +33,36 @@ public class mindseyeAttack : MonoBehaviour
             AttackCooldownTimer -= Time.deltaTime;
         }    
     }
+#if false
+    public void FreezePlayer()
+    {
+        if (AttackCooldownTimer <= 0)
+        {
+            if (playerController != null)
+            {
+                playerController.IsFrozen = true; //Turn on freeze state
+                Debug.Log($"IsFrozen: {playerController.IsFrozen}");
 
+                stunPlayer();
+                StartCoroutine(stunEffect());
+
+                AttackCooldownTimer = AttackCooldown;
+                Debug.Log($"Attack cooldown started {AttackCooldownTimer} seconds.");
+            } 
+        }
+    }
+
+    public void UnfreezePlayer()
+    {
+        if (playerController != null)
+        {
+            playerController.Speed = speedOrig;
+            Debug.Log($"The player's epeed has been set to {playerController.Speed}");
+            playerController.IsFrozen = false;  //Turn off freeze state
+            Debug.Log($"IsFrozen: {playerController.IsFrozen}");
+        }
+    }
+#endif
 
     public void FreezePlayer()
     {
@@ -50,6 +73,7 @@ public class mindseyeAttack : MonoBehaviour
                 playerController.IsFrozen = true;
                 playerController.Speed = 0;  // Stop movement immediately
                 Debug.Log($"Player is frozen. Speed set to 0.");
+                // Additional logic to ignore input during stun can be added here
             }
 
             StartCoroutine(stunEffect());
@@ -66,43 +90,17 @@ public class mindseyeAttack : MonoBehaviour
         }
     }
 
-    //public void stunPlayer()
-    //{
-    //    if (playerController != null)
-    //    {
-    //        playerController.Speed = 0;
-    //        Debug.Log("Player is stunned...");
-    //    }
-    //    else
-    //        Debug.LogWarning($"playerController is not set: Use inspector to assign.");
-
-    //}
-
-    public void TakeDamage(int damage)
-    { 
-        health -= damage;
-
-        if (health <= 0)
-        {
-            Death();
-        }
-    }
-
-
-    private void Death()
+    public void stunPlayer()
     {
-        StopEnemySpawners();
-        Destroy(gameObject);
-    }
-
-    private void StopEnemySpawners()
-    {
-        foreach (var spawner in enemySpawns)
+        if (playerController != null)
         {
-            spawner.StopAllCoroutines();
+            playerController.Speed = 0;
+            Debug.Log("Player is stunned...");
         }
+        else
+            Debug.LogWarning($"playerController is not set: Use inspector to assign.");
+
     }
-    
 
     IEnumerator stunEffect()
     {
@@ -111,8 +109,10 @@ public class mindseyeAttack : MonoBehaviour
         yield return new WaitForSecondsRealtime(StunTime);
 
 
-       
-        UnfreezePlayer();        
+        if (!playerController.IsFrozen)
+        {
+            UnfreezePlayer();
+        }        
         gamemanager.instance.StunnedPlayer = false;
         Debug.Log($"StunnedPlayer is set to {gamemanager.instance.StunnedPlayer}");
     }
@@ -132,7 +132,7 @@ public class mindseyeAttack : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-           UnfreezePlayer();
+           // UnFreezePlayer();
         }
 
     }
