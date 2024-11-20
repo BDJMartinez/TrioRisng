@@ -12,7 +12,7 @@ public class PlayerController : MonoBehaviour, EnemyDamage
 {
     public float Speed { get => speed; set => speed = value; }
     public bool IsFrozen { get => isFrozen; set => isFrozen = value; }
-    //public bool IsSprinting { get => isFrozen; protected set => isFrozen = value; }
+    public bool IsSprinting { get => isSprinting; protected set => isSprinting = value; }
     public bool IsOccupied { get => isOccupied; set => isOccupied = value; }    
 
     [SerializeField] int health;
@@ -256,8 +256,11 @@ public class PlayerController : MonoBehaviour, EnemyDamage
     {
         return movementDir.magnitude > 0;
     }
+
+#if false
     public bool IsSprinting()
     {
         return isSprinting;
     }
+#endif
 }

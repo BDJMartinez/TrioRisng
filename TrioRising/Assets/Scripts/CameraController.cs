@@ -42,7 +42,7 @@ public class CameraController : MonoBehaviour
         transform.parent.Rotate(Vector3.up * mouseX);
 
         // Get whether the player is sprinting
-        bool isSprinting = playerController.IsSprinting();
+        //bool isSprinting = playerController.IsSprinting;
 
         // Modify bobbing based on sprinting status
         if (playerController != null && playerController.IsMoving())
@@ -50,7 +50,7 @@ public class CameraController : MonoBehaviour
             bobTimer += Time.deltaTime * bobFrequency;
 
             // Intensify bobbing when sprinting
-            float intensityMultiplier = isSprinting ? 2.5f : 1f; // Increase intensity by 1.5x when sprinting
+            float intensityMultiplier = playerController.IsSprinting ? 2.5f : 1f; // Increase intensity by 1.5x when sprinting
 
             float bobOffsetY = Mathf.Sin(bobTimer) * bobAmplitude * intensityMultiplier;
             float bobOffsetX = Mathf.Cos(bobTimer * 0.5f) * bobSway * intensityMultiplier;
