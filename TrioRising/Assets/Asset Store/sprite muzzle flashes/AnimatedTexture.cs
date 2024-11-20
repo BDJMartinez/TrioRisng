@@ -1,3 +1,24 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:7be8408741e2069716baf705dbaf87c1f13e6ee5b6def33cbf4b12d5654926a2
-size 546
+using UnityEngine;
+using System.Collections;
+
+public class AnimatedTexture : MonoBehaviour
+{
+    public float fps = 30.0f;
+    public Texture2D[] frames;
+
+    private int frameIndex;
+    private MeshRenderer rendererMy;
+
+    void Start()
+    {
+        rendererMy = GetComponent<MeshRenderer>();
+        NextFrame();
+        InvokeRepeating("NextFrame", 1 / fps, 1 / fps);
+    }
+
+    void NextFrame()
+    {
+        rendererMy.sharedMaterial.SetTexture("_MainTex", frames[frameIndex]);
+        frameIndex = (frameIndex + 1) % frames.Length;
+    }
+}

@@ -1,3 +1,316 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:13c4f221118c67c80f976107a45be6344aae442a365b64b2de7bf41da247302b
-size 8222
+using System.Collections;
+using System.Collections.Generic;
+using System.Runtime.InteropServices.WindowsRuntime;
+using Unity.VisualScripting;
+
+//using UnityEditor.Experimental.RestService;
+using UnityEngine;
+using UnityEngine.SocialPlatforms;
+
+
+public class PlayerController : MonoBehaviour, EnemyDamage
+{
+    public float Speed { get => speed; set => speed = value; }
+    public bool IsFrozen { get => isFrozen; set => isFrozen = value; }
+
+    public PlayerInventory Inventory { get; set; }
+
+    [SerializeField] int health;
+    [SerializeField] float speed;
+    [SerializeField] int jumpMax;
+    [SerializeField] float maxJumpHeight = 5.0f;
+    [SerializeField] float jumpSpeed;
+    [SerializeField] float gravity;
+    [SerializeField] int sprintMod;
+    [SerializeField] float jumpTimeSpan;
+
+    [SerializeField] Camera cam;
+    [SerializeField] CharacterController controller;
+
+    [SerializeField] GameObject currentWeapon;
+    [SerializeField] GameObject handgun;
+    [SerializeField] GameObject shotgun;
+    [SerializeField] GameObject submachinegun;
+    Vector3 movementDir;
+    int jumpCount;
+    int HPOrig;
+    Vector3 playerVelocity;
+    bool isShooting;
+    private bool isSprinting;
+    bool continuousFire;
+    bool swapping;
+
+    bool isFrozen; //Freeze state
+    //GameObject pe;
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        
+        continuousFire = false;
+        HPOrig = health;
+        updatePlayerUI();
+        spawnPlayer();
+        gamemanager.instance.MainMenu();
+    }
+
+    public void spawnPlayer()
+    {
+        controller.enabled = false;
+        transform.position = gamemanager.instance.playerSpawnPOS.transform.position;
+        controller.enabled = true;
+        health = HPOrig;
+        updatePlayerUI();
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        //if (Input.GetButtonDown("Fire1"))
+        //{
+        //    Attack();
+        //}
+
+        movement();
+        sprint();
+    }
+
+
+
+    void movement()
+    {
+        if (controller.isGrounded)
+        {
+            jumpCount = 0;
+            playerVelocity = Vector3.zero;
+        }
+
+        movementDir = Input.GetAxis("Horizontal") * transform.right + Input.GetAxis("Vertical") * transform.forward;
+        controller.Move(movementDir * speed * Time.deltaTime);
+
+        if (Input.GetButtonDown("Jump") && jumpCount < jumpMax)
+        {
+            jumpCount++;
+            playerVelocity.y = jumpSpeed;
+        }
+        
+        if (Input.GetButton("Jump") && playerVelocity.y > 0)
+        {
+            playerVelocity.y += jumpSpeed * Time.deltaTime;
+        }
+
+        playerVelocity.y -= gravity * Time.deltaTime;
+        controller.Move(playerVelocity * Time.deltaTime);
+
+
+        if (Input.GetButton("Fire1") &&!gamemanager.instance.isPaused&&!swapping)
+        {
+            if (currentWeapon != null)
+            {
+                IWeapon weapon = currentWeapon.GetComponent<IWeapon>();
+                weapon.Fire(continuousFire);
+                continuousFire = true;
+            }
+        }
+
+        if (Input.GetButtonUp("Fire1"))
+        {
+            continuousFire = false;
+        }
+
+        if (Input.GetButtonDown("Reload"))
+        {
+            if (!continuousFire)
+            {
+
+                if (currentWeapon != null)
+                {
+                    IWeapon weapon = currentWeapon.GetComponent<IWeapon>();
+                    weapon.Reload();
+                }
+            }
+        }
+
+        if (Input.GetButtonDown("Weapon1"))
+        {
+            swapWeapons(handgun);
+        }
+
+        if (Input.GetButtonDown("Weapon2"))
+        {
+            swapWeapons(shotgun);
+        }
+        if (Input.GetButtonDown("Weapon3"))
+        {
+            swapWeapons(submachinegun);
+        }
+
+    }
+
+    void swapWeapons(GameObject weapon)
+    {
+        if(!continuousFire && !swapping)
+        {
+            if(currentWeapon != weapon)
+            {
+                StartCoroutine(doWeaponSwap(currentWeapon, weapon));
+            }
+        }
+    }
+
+    IEnumerator doWeaponSwap(GameObject inweapon, GameObject outweapon)
+    {
+        swapping = true;
+        currentWeapon.SetActive(false);
+        currentWeapon = outweapon;
+        currentWeapon.SetActive(true);
+        IWeapon weapon = currentWeapon.GetComponent<IWeapon>();
+        if (weapon != null)
+        {
+            // Assuming your IWeapon interface or class has access to `clipCurrent` and `ammo`
+            HitScanWeapon hitScanWeapon = currentWeapon.GetComponent<HitScanWeapon>();
+            if (hitScanWeapon != null)
+            {
+                gamemanager.instance.updateAmmoUI(hitScanWeapon.clipCurrent, hitScanWeapon.ammo);
+            }
+        }
+        yield return new WaitForSeconds(1);
+        swapping = false;
+    }
+
+    public void takeDamage(int amount)
+    {
+        health -= amount;
+        updatePlayerUI();
+        StartCoroutine(damageFlash());
+
+        if (health <= 0)
+        {
+            gamemanager.instance.youLose();
+        }
+    }
+
+    IEnumerator damageFlash()
+    {
+        gamemanager.instance.playerDamageScreen.SetActive(true);
+        yield return new WaitForSeconds(0.1f);
+        gamemanager.instance.playerDamageScreen.SetActive(false);
+    }
+
+    public void updatePlayerUI()
+    {
+        gamemanager.instance.playerHpBar.fillAmount = (float)health / HPOrig;
+
+    }
+
+    void sprint()
+    {
+        if (Input.GetButtonDown("Sprint"))
+        {
+            speed *= sprintMod;
+            isSprinting = true;
+        }
+        else if (Input.GetButtonUp("Sprint"))
+        {
+            speed /= sprintMod;
+            isSprinting = false;
+        }
+    }
+
+    public void getBuffStats(BuffPickUps buff)
+    {
+        if (buff.HealAmount > 0)
+        {
+            health += buff.HealAmount;
+            
+            if (health > HPOrig)
+            {
+                health = HPOrig;
+            }
+            updatePlayerUI(); 
+        }
+
+       
+        if (buff.SpeedMod > 0)
+        {
+            StartCoroutine(ApplySpeedBoost(buff.SpeedMod, buff.SpeedBoostDuration));
+        }
+        if (buff.ClipAmount > 0 && currentWeapon != null)
+        {
+            IWeapon weapon = currentWeapon.GetComponent<IWeapon>();
+            if (weapon != null)
+            {
+                HitScanWeapon hitScanWeapon = currentWeapon.GetComponent<HitScanWeapon>();
+                if (hitScanWeapon != null)
+                {
+                    hitScanWeapon.IncreaseClips(buff.ClipAmount);
+                    gamemanager.instance.updateAmmoUI(hitScanWeapon.clipCurrent, hitScanWeapon.ammo);
+                }
+            }
+        }
+    }
+    IEnumerator ApplySpeedBoost(float speedMultiplier, float duration)
+    {
+        
+        speed *= speedMultiplier;
+
+        
+        yield return new WaitForSeconds(duration);
+
+        
+        speed /= speedMultiplier;
+    }
+
+    public void CollectItems(BuffPickUps buff)
+    {
+        gamemanager.instance.AddToInventory(buff);
+    }
+
+    public bool IsMoving()
+    {
+        return movementDir.magnitude > 0;
+    }
+    public bool IsSprinting()
+    {
+        return isSprinting;
+    }
+
+
+    private void Attack()
+    {
+        // Check if the player can attack
+        if (CanAttack())
+        {
+            RaycastHit hit;
+            if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out hit, 10f))
+            {
+
+                if (hit.collider.CompareTag("Mindseye"))
+                {
+                    mindseyeAttack mindseye = hit.collider.GetComponent<mindseyeAttack>();
+                    if (mindseye != null)
+                    {
+                        Debug.Log("Player attacks the mind's eye!");
+
+                        mindseye.TakeDamage(1); // Assuming each attack deals 1 damage
+
+                    }
+                }
+            }
+        }
+        else
+        {
+            Debug.Log("Cannot attack: Player is frozen or on cooldown.");
+        }
+    }
+
+    public bool CanAttack()
+    {
+        return !IsFrozen;
+    }
+} 
+
+
+
+
+

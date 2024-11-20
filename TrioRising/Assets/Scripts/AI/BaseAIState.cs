@@ -1,3 +1,33 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:8c005baa87daeff861d8b258e1068457c9413cc478215bed8868f57beb676c10
-size 739
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+namespace UndeadWarfare.AI
+{
+    public class RegisterState : BaseAIState
+    {
+        public RegisterState(BaseUndead owner) : base(owner) { Name = EnemyState.Seek; }
+
+        public override void Run()
+        {
+            // NOOP
+        }
+    }
+
+    public abstract class BaseAIState : MonoBehaviour
+    {
+        public BaseUndead Owner;
+
+        public EnemyState Name;
+
+        public string FunctionName;
+
+
+        public BaseAIState(BaseUndead owner)
+        {
+            Owner = owner; 
+        }
+
+        public abstract void Run();
+    }
+}
