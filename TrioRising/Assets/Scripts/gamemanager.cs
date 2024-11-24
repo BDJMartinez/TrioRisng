@@ -39,7 +39,7 @@ public class gamemanager : MonoBehaviour
     public Image playerHpBar;
 
     public GameObject playerDamageScreen;
-    public PlayerController_Deprecated playerScript;
+    public PlayerController playerScript;
     public GameObject playerSpawnPOS;
     public TMP_Text ammoCur, ammoMax;
     [SerializeField] GameObject dummy;
@@ -59,7 +59,7 @@ public class gamemanager : MonoBehaviour
         instance = this;
         timeScaleOrig = Time.timeScale;
         player = GameObject.FindWithTag("Player");
-        playerScript = player.GetComponent<PlayerController_Deprecated>();
+        playerScript = player.GetComponent<PlayerController>();
         playerSpawnPOS = GameObject.FindWithTag("PlayerSpawnPOS");
         dirtyCache = true;
     }
