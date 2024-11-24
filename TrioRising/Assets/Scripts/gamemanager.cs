@@ -44,6 +44,8 @@ public class gamemanager : MonoBehaviour
     public TMP_Text ammoCur, ammoMax;
     [SerializeField] GameObject dummy;
 
+    public GameObject minimap;
+
     float timeScaleOrig;
     public GameObject player;
 
@@ -61,6 +63,7 @@ public class gamemanager : MonoBehaviour
         player = GameObject.FindWithTag("Player");
         playerScript = player.GetComponent<PlayerController>();
         playerSpawnPOS = GameObject.FindWithTag("PlayerSpawnPOS");
+        minimap = GameObject.Find("Canvas").transform.Find("RawImage").gameObject;
         dirtyCache = true;
     }
 
@@ -76,6 +79,7 @@ public class gamemanager : MonoBehaviour
                 statePause();
                 menuActive = menuPause;
                 menuActive.SetActive(isPaused);
+                minimap.SetActive(false);
             }
             else if (menuActive == menuPause)
             {
@@ -184,6 +188,7 @@ public class gamemanager : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
         menuActive.SetActive(false);
         menuActive = null;
+        minimap.SetActive(true);
     }
 
     public void updateGameGoal(int amount)
