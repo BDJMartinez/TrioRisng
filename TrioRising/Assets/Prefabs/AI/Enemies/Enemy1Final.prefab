@@ -892,6 +892,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5446600281344639333}
   - component: {fileID: 5955319019714808470}
+  - component: {fileID: 5343072330572988710}
   - component: {fileID: 6495527388556489668}
   - component: {fileID: 7388063973859118048}
   - component: {fileID: 4261441039059869929}
@@ -902,7 +903,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &5446600281344639333
 Transform:
   m_ObjectHideFlags: 0
@@ -943,6 +944,35 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!114 &5343072330572988710
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8395220090379803809}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b943f90133e47004f9fa70f9cc4140d7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 25
+  shootPos: {fileID: 6363364716470648345}
+  headPos: {fileID: 7867113703854217069}
+  bullet: {fileID: 7023022507366372509, guid: 4e48527c9b9fe4746bc9f34640c992d1, type: 3}
+  shootRate: 1
+  agent: {fileID: 5955319019714808470}
+  model: {fileID: 2172107340104687640}
+  rotationSpeed: 40
+  walkPointRange: 60
+  groundMask:
+    serializedVersion: 2
+    m_Bits: 1024
+  playerMask:
+    serializedVersion: 2
+    m_Bits: 8
+  sightRange: 50
+  attackRange: 30
 --- !u!95 &6495527388556489668
 Animator:
   serializedVersion: 5

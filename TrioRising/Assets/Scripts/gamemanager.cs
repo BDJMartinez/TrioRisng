@@ -193,6 +193,7 @@ public class gamemanager : MonoBehaviour
 
     public void updateGameGoal(int amount)
     {
+        Debug.Log($"Updating game goal by: {amount}");
         enemyCount += amount;
         enemyCountText.text = enemyCount.ToString("F0");
 

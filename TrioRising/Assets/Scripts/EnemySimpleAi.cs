@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class EnemyBossAi : MonoBehaviour, UndeadWarfare.AI.IDamage, IMonster
+public class EnemySimpleAi : MonoBehaviour, UndeadWarfare.AI.IDamage, IMonster
 {
     [SerializeField] int health;
     [SerializeField] Transform shootPos;
@@ -35,7 +35,7 @@ public class EnemyBossAi : MonoBehaviour, UndeadWarfare.AI.IDamage, IMonster
     // Update is called once per frame
     void Update()
     {
-        
+
         playerInSight = Physics.CheckSphere(transform.position, sightRange, playerMask);
         playerInRange = Physics.CheckSphere(transform.position, attackRange, playerMask);
 
@@ -55,7 +55,7 @@ public class EnemyBossAi : MonoBehaviour, UndeadWarfare.AI.IDamage, IMonster
 
         Vector3 distanceToWalkPoint = transform.position - walkPoint;
 
-        
+
         if (distanceToWalkPoint.magnitude < 1f)
         {
             isWalking = false;
@@ -69,7 +69,7 @@ public class EnemyBossAi : MonoBehaviour, UndeadWarfare.AI.IDamage, IMonster
 
         walkPoint = new Vector3(transform.position.x + randomX, transform.position.y, transform.position.z + randomZ);
 
-        
+
         if (Physics.Raycast(walkPoint, -transform.up, 2f, groundMask))
         {
             isWalking = true;
@@ -125,10 +125,6 @@ public class EnemyBossAi : MonoBehaviour, UndeadWarfare.AI.IDamage, IMonster
         {
             isDead = true; // Prevent further interactions.
             gamemanager.instance.updateGameGoal(-1);
-            if (gamemanager.instance.GetEnemyCount() == 0)
-            {
-                gamemanager.instance.ShowWinMenu();
-            }
             Die();
         }
     }
